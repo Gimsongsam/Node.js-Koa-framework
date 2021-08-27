@@ -3,14 +3,13 @@ import * as postsCtrl from './posts.ctrl';
 
 const posts = new Router();
 
-// (라우트 설정, printInfo 함수 호출)
 posts.get('/', postsCtrl.list);
 posts.post('/', postsCtrl.write);
 
 const post = new Router(); // /api/posts/:id
-posts.get('/', postsCtrl.read);
-posts.delete('/', postsCtrl.remove);
-posts.patch('/', postsCtrl.update);
+post.get('/', postsCtrl.read);
+post.delete('/', postsCtrl.remove);
+post.patch('/', postsCtrl.update);
 
 // 리팩토링
 posts.use('/:id', postsCtrl.checkObjectId, post.routes());

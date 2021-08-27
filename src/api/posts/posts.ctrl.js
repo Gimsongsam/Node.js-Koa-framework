@@ -109,6 +109,20 @@ export const remove = async ctx => {
 */
 export const update = async ctx => {
     const { id } = ctx.params;
+    //write에서 사용한 schema와 비슷한데, required()가 없습니다.
+    const schema = Joi.object().keys({
+        title: Joi.string(),
+        body: Joi.string(),
+        tags: Joi.array().items(Joi.string()),
+    });
+
+    // 검증하고 나서 검증 실패인 경우 에러 처리
+    const result = schema.validate(ctx.request.body);
+    if(result.error){
+        ctx.status = 400; // Bad Request
+        ctx.body = result.error;
+        return;
+    }
     try{
         console.log('error');
         const post = await Post.findByIdAndUpdate(id, ctx.request.body, {
@@ -124,20 +138,3 @@ export const update = async ctx => {
         ctx.throw(500, e);
     }
 };
-
-
-
-// write에서 사용한 schema와 비슷한데, required()가 없습니다.
-// const schema = Joi.object().keys({
-//     title: Joi.string(),
-//     body: Joi.string(),
-//     tags: Joi.array().items(Joi.string()),
-// })
-
-// // 검증하고 나서 검증 실패인 경우 에러 처리
-// const result = schema.validate(ctx.request.body);
-// if(result.error){
-//     ctx.status = 400; // Bad Request
-//     ctx.body = result.error;
-//     return;
-// }
