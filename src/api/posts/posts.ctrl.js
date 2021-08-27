@@ -60,9 +60,37 @@ export const write = async ctx => {
     GET /api/posts
 */
 export const list = async ctx => {
+    // query는 문자열이기 때문에 숫자로 변환해 주어야 합니다.
+    // 값이 주어지지 않았다면 1을 기본으로 사용합니다.
+    const page = parseInt(ctx.query.page || '1', 10);
+
+    if (page < 1){
+        ctx.status = 400;
+        return;
+    }
+
     try {
-        const posts = await Post.find().exec();
-        ctx.body = posts;
+        const posts = await Post.find() // 데이터를 조회할때는 find 함수를 사용한다.
+            .sort({_id: -1})
+            .limit(10)
+            .skip((page - 1) * 10)
+            .lean()
+            .exec(); // exec()를 붙여주어야 서버에 쿼리를 요청할 수 있다.
+        // 커스텀 헤더 설정하기
+        const postCount = await Post.countDocuments().exec();
+        // console.log(posts.toJSON())
+        // countDocuments() -> 실제 문서 개수
+        // Last-page라는 커스텀 HTTP 헤더를 설정해주기
+        ctx.set('Last-Page', Math.ceil(postCount / 10));
+        ctx.body = posts
+            // .map(post => post.toJSON())
+            // find()를 통해 조회한 데이터는 mongoose 문서 인스턴스의 형태이므로 데이터를 바로 변형할 수 없다.
+            // 따라서 toJSON() 함수를 실행하여 JSON 형태로 변환한 뒤 변형을 일으켜줘야한다.
+            .map(post => ({
+                ...post,
+                body: // 200자가 넘는다면 잘라주기
+                    post.body.length < 200 ? post.body : `${post.body.slice(0, 200)}...`,
+            }));
     } catch (e){
         ctx.throw(500, e);
     }
@@ -75,7 +103,7 @@ export const list = async ctx => {
 export const read = async ctx => {
     const {id} = ctx.params;
     try{
-        const post = await Post.findById(id).exec();
+        const post = await Post.findById(id).exec(); // 특정 id를 가진 데이터를 조회할 때 findeById 사용하기
         if (!post){
             ctx.status = 404; // Not Found
             return;
@@ -92,7 +120,7 @@ export const read = async ctx => {
 export const remove = async ctx => {
     const { id } = ctx.params;
     try{
-        await Post.findByIdAndRemove(id).exec();
+        await Post.findByIdAndRemove(id).exec(); // 특정 아이디값을 조회하여 제거
         ctx.status = 204; // No Content (성공하기는 했지만 응답할 데이터는 없음)
     } catch (e){
         ctx.throw(500, e);
