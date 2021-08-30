@@ -1,5 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
-// import bcrypt from 'bcrypt';
+// import bcryptjs from 'bcryptjs';
 
 var bcrypt = require('bcryptjs');
 
