@@ -4,14 +4,25 @@ import Joi from 'joi';
 
 const { ObjectId } = mongoose.Types;
 
-export const checkObjectId = (ctx, next) => {
+export const getPostById = async (ctx, next) => {
     const {id} = ctx.params; // id값을 추출하기
     if(!ObjectId.isValid(id)){ // id값이 없다면
-        console.log('hello');
         ctx.status = 400; // Bad Request
         return;
     }
-    return next(); // 다음 테스크 실행
+    try {
+        const post = await Post.findById(id);
+        // 포스트가 존재하지 않을 때
+        if (!post){
+            ctx.status = 404; // Not Found
+            return;
+        }
+        ctx.state.post = post;
+        return next();
+    }catch (e){
+        ctx.throw(500, e);
+    }
+    // return next(); // 다음 테스크 실행
 };
 
 /*
@@ -46,6 +57,7 @@ export const write = async ctx => {
         title,
         body,
         tags,
+        user: ctx.state.user,
     });
     try{
         await post.save();
@@ -57,7 +69,7 @@ export const write = async ctx => {
 // 함수의 반환값이 Promise이다.
 
 /*
-    GET /api/posts
+    GET /api/posts?username=&tag=&page=
 */
 export const list = async ctx => {
     // query는 문자열이기 때문에 숫자로 변환해 주어야 합니다.
@@ -69,15 +81,22 @@ export const list = async ctx => {
         return;
     }
 
+    const {tag, username } = ctx.query;
+    // tag, username 값이 유효하면 객체 안에 넣고, 그렇지 않으면 넣지 않음
+    const query = {
+        ...(username ? {'user.username': username} : {}),
+        ...(tag ? {tags: tag} : {}),
+    };
+
     try {
-        const posts = await Post.find() // 데이터를 조회할때는 find 함수를 사용한다.
+        const posts = await Post.find(query) // 데이터를 조회할때는 find 함수를 사용한다.
             .sort({_id: -1})
             .limit(10)
             .skip((page - 1) * 10)
             .lean()
             .exec(); // exec()를 붙여주어야 서버에 쿼리를 요청할 수 있다.
         // 커스텀 헤더 설정하기
-        const postCount = await Post.countDocuments().exec();
+        const postCount = await Post.countDocuments(query).exec();
         // console.log(posts.toJSON())
         // countDocuments() -> 실제 문서 개수
         // Last-page라는 커스텀 HTTP 헤더를 설정해주기
@@ -101,17 +120,7 @@ export const list = async ctx => {
 */
 
 export const read = async ctx => {
-    const {id} = ctx.params;
-    try{
-        const post = await Post.findById(id).exec(); // 특정 id를 가진 데이터를 조회할 때 findeById 사용하기
-        if (!post){
-            ctx.status = 404; // Not Found
-            return;
-        }
-        ctx.body = post;
-    }catch (e){
-        ctx.throw(500, e);
-    }
+    ctx.body = ctx.state.post;
 };
 
 /*
@@ -152,7 +161,7 @@ export const update = async ctx => {
         return;
     }
     try{
-        console.log('error');
+        // console.log('error');
         const post = await Post.findByIdAndUpdate(id, ctx.request.body, {
             new: true, // 이 값을 설정하면 업데이트된 데이터를 반환합니다.
             // false일 때는 업데이트되기 전의 데이터를 반환합니다.
@@ -166,3 +175,14 @@ export const update = async ctx => {
         ctx.throw(500, e);
     }
 };
+
+export const checkOwnPost = (ctx, next) => {
+    // 비구조 할당
+    const { user, post } = ctx.state;
+    // 작성된 포스트의 사용자 id 값과 기능을 실행한 사용자의 id값을 비교하기
+    if (post.user._id.toString() !== user._id){
+        ctx.status = 403;
+        return;
+    }
+    return next();
+}

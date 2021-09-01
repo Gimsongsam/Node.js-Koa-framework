@@ -6,7 +6,7 @@ import mongoose from 'mongoose';
 
 import api from './api';
 import jwtMiddleware from './lib/jwtMiddleware';
-import createFakeData from './createFakeData';
+// import createFakeData from './createFakeData';
 
 // 비구조화 할당을 통해 process.env 내부 값에 대한 레퍼런스 만들기
 // 환경변수에 접근하기
