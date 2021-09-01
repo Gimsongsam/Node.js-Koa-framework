@@ -1,7 +1,7 @@
 import mongoose, { Schema } from 'mongoose';
 // import bcryptjs from 'bcryptjs';
-
 var bcrypt = require('bcryptjs');
+import jwt from 'jsonwebtoken';
 
 const UserSchema = new Schema({
     username: String,
@@ -21,11 +21,27 @@ UserSchema.methods.checkPassword = async function(password){
     return result; // true / false
 };
 
+// hashedPassword 필드가 응답되지 않도록 delete해줌
 UserSchema.methods.serialize = function(){
     const data = this.toJSON();
     delete data.hashedPassword;
     return data;
 }
+
+UserSchema.methods.generateToken = function(){
+    const token = jwt.sign(
+        // 첫 번째 파라미터에는 토큰 안에 집어넣고 싶은 데이터를 넣습니다.
+        {
+            _id: this.id,
+            username: this.username,
+        },
+        process.env.JWT_SECRET, // 두 번째 파라미터에는 JWT 암호를 넣습니다.
+        {
+            expiresIn: '3d', // 7일 동안 유효함
+        },
+    );
+    return token;
+};
 
 // 스태틱 메소드
 // username으로 데이터를 찾을 수 있게 해준다.

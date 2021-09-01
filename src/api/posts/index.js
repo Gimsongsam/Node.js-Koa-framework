@@ -1,3 +1,4 @@
+// 핵심
 import Router from 'koa-router';
 import * as postsCtrl from './posts.ctrl';
 
