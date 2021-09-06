@@ -4,6 +4,10 @@ import Router from 'koa-router';
 import bodyParser from 'koa-bodyparser';
 import mongoose from 'mongoose';
 
+// const { createProxyMiddleware } = require('http-proxy-middleware');
+const cors = require('@koa/cors');
+// import cors from 'cors';
+
 import api from './api';
 import jwtMiddleware from './lib/jwtMiddleware';
 // import createFakeData from './createFakeData';
@@ -14,7 +18,7 @@ const { PORT, MONGO_URI } = process.env;
 
 // mongoose를 이용하여 서버와 데이터베이스 연결하기
 mongoose
-.connect(MONGO_URI, {useNewUrlParser: true, useFindAndModify: false})
+.connect(MONGO_URI, {useNewUrlParser: true})
     .then(() => {
         console.log('Connected to MongoDB');
         // createFakeData();
@@ -25,6 +29,14 @@ mongoose
 
 const app = new Koa();
 const router = new Router();
+
+// cors 설정
+app.use(cors({
+    // origin: '*',
+    // credentials: false,
+}));
+
+app.proxy = true
 
 // 라우터 설정
 router.use('/api', api.routes()); // api 라우트 적용
