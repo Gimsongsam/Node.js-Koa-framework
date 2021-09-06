@@ -7,13 +7,17 @@ import './auth.scss';
 
 const Auth = () => {
     return (
-        <div class="auth_style">
+        <div className="auth_style">
             <h3>REACTERS</h3>
             {/* <AuthRegister /> */}
-            <Route path="/register" component={AuthRegister}/>
-            <Route path="/login" component={AuthLogin}/>
+            <Route path="/register">
+                <AuthRegister />
+            </Route>
+            <Route path="/login">
+                <AuthLogin />
+            </Route>
         </div>
-    )
+    );
 }
 
 export default Auth;
