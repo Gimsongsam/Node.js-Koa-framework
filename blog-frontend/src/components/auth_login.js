@@ -8,8 +8,8 @@ const AuthLogin = () => {
 
     // 입력값 데이터 설정하기
     const [input, setInput] = useState({
-        username: null,
-        password: null
+        username: "",
+        password: ""
     })
 
     const onChange_id = useCallback(
@@ -34,18 +34,24 @@ const AuthLogin = () => {
     
     console.log(input)
 
+    const [alert, setAlert] = useState('');
 
     //api 요청하기
     const onSubmit = async () => {
-        try{
-            await axios.post('http://localhost:4000/api/auth/login',
-            {
-                withCredentials: true,
-                username: input.username,
-                password: input.password
-            })
-        } catch(e){
-            console.log(e)
+        if(input.username.length === 0 || input.password.length === 0){
+            setAlert('빈 칸을 모두 입력하세요.');
+        }else{
+            try{
+                await axios.post('http://localhost:4000/api/auth/login',
+                {   
+                    // withCredentials: true,
+                    username: input.username,
+                    password: input.password
+                })
+            } catch(e){
+                setAlert('아이디 혹은 비밀번호가 일치하지 않습니다.');
+                console.log(e)
+            }
         }
     }
     
@@ -61,9 +67,12 @@ const AuthLogin = () => {
     return(
         <div>
             <p>로그인</p>
-            <form className="auth_input" onSubmit={onSubmit}>
+            <form className="auth_input">
                 <input type="text" placeholder="아이디" onChange={onChange_id} />
                 <input type="password" placeholder="비밀번호" onChange={onChange_password} />
+                <p className="alert_text">
+                    {alert}
+                </p>
             </form>
 
             <button
