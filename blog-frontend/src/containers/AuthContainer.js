@@ -1,45 +1,32 @@
-// import React, {useEffect} from 'react';
-// import {connect} from 'react-redux';
-// // import {checkUserData, registerUserData, loginUserData} from '../modules/auth'
+import React from 'react';
+import {connect} from 'react-redux';
+import {setInput, username, password} from '../modules/auth';
+import Auth from '../components/Auth';
 
+const AuthContainer = ({
+    input,
+    setInput,
+    username,
+    password,
+}) => {
+    return (
+        <Auth
+            // setInput={setInput}
+            username={username}
+            password={password}
+            input={input}
+            // password={password}
+        />
+    );
+};
 
-// const AuthContainer = ({
-// //     id,
-// //     password,
-// //     password_confirm,
-// //     checkUserData,
-// //     registerUserData,
-// //     loginUserData
-// }) => {
-    
-// //     useEffect(() => {
-// //         // checkUserData();
-// //         registerUserData();
-// //         loginUserData();
-// //         console.log('mount');
-// //     },[registerUserData, loginUserData,]);
-    
-// //     return (
-// //         <auth 
-// //             id={id}
-// //             password={password}
-// //             password_confirm={password_confirm}
-// //             // checkUserData={checkUserData}
-// //             registerUserData={registerUserData}
-// //             loginUserData={loginUserData}
-// //         />
-// //     )
-// };
-
-// // export default connect(
-// //     ({auth}) => ({
-// //         id: auth.id,
-// //         password: auth.password,
-// //         password_confirm: auth.password_confirm
-// //     }),
-// //     {
-// //         // checkUserData,
-// //         registerUserData,
-// //         loginUserData
-// //     }
-// // )(AuthContainer);
+export default connect(
+    ({auth}) => ({
+        username: auth.username,
+        password: auth.password,
+    }),
+    {
+        username,
+        password
+    }
+)(AuthContainer)

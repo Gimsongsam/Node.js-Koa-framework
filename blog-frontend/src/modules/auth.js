@@ -1,75 +1,58 @@
-// import {createAction, handleAction} from 'redux-actions';
-// import * as api from '../lib/api';
+import {createAction, handleActions} from 'redux-actions';
+import * as api from '../lib/api';
+import {call, put} from 'redux-saga/effects'
 
-// // 액션 타입 선언
-// const SUBMIT_DATA = 'auth/SUBMIT_DATA'; // insert 값
-// // const CHANGE_INPUT = 'auth/CHANGE_INPUT'; // 인풋값 변경하기
-// // const POST_USER_DATA = 'auth/POST_USER_DATA';
-// // const GET_USER_DATA = 'auth/GET_USER_DATA';
+//액션 타입 설정하기
+// 인풋값 설정 액션
+// const SETINPUT = 'auth/SETINPUT';
+const CHANGE_USERNAME = 'auth/CHANGE_USERNAME';
+const CHANGE_PASSWORD = 'auth/CHANGE_PASSWORD';
+// const CHANGE_PASSWORD_CONFIRM = 'auth/CHANGE_PASSWORD_CONFIRM';
 
+const LOGIN = 'auth/LOGIN';
+const REGISTER = 'auth/REGISTER';
 
+// 액션 생성자 함수 / 사가 함수 만들기
+// export const setInput = createAction(CHANGE_USERNAME, (username, password) => ({
+//         username,
+//         password
+//     }));
+export const username = createAction(CHANGE_USERNAME, input => input)
+export const password = createAction(CHANGE_PASSWORD, input => input)
 
-// // 액션생성자 함수 생성
-// // export const changeInput = createAction(CHANGE_INPUT, input => ({
-// //     id: input.id,
-// //     password: input.password
-// // }));
+// api 요청 액션
+export function* loginSaga(action){
+    // yield put({
+    //     type: LOGIN,
+    //     payload: 
+    // });
+    try{
+        const login = yield call(api.login, action.payload);
+        console.log(login);
+        
+    }catch(e){
 
-// export const submitData = createAction(SUBMIT_DATA, input => input);
+    }
+}
 
+const initialState = {
+    username: '',
+    password: '',
+    password_confirm: ''
+}
 
-// // input => ({
-// //     type: INSERT,
-// //     input: {
-// //         id: input.id,
-// //         password: input.password
-// //     }
-// // })
+const auth = handleActions(
+    {
+        [CHANGE_USERNAME] : (state, action) => ({
+            ...state,
+            username: action.payload,
+        }),
+        [CHANGE_PASSWORD] : (state, action) => ({
+            ...state,
+            password: action.payload,
+        }),
+    },
+    initialState
+);
 
-// // export const postUserData = createAction(POST_USER_DATA);
-// // export const getUserData = createAction(GET_USER_DATA);
-
-// // function* checkUserData(){
-// //     try{
-// //         const userData = call(api.checkUserData);
-// //     }
-// // } 
-
-// // function* registerUserData(){
-// //     try{
-// //         const userdata = call(api.registerUserData)
-// //     }
-// // } 
-
-// // export const loginUserData = () => {
-
-// // } 
-
-
-// // 초기 데이터 설정
-// const initialState = {
-//     id : null,
-//     password: null,
-//     password_confirm: null,
-// }
-
-// const auth = handleAction(
-//     {
-//         // [CHANGE_INPUT]: (state, action) => ({})
-
-//         // [POST_USER_DATA]: (state, action) => ({
-//         //     ...state,
-//         //     id: action.payload,
-//         //     password: action.payload,
-//         //     password_confirm: action.payload
-//         // }),
-//         // [GET_USER_DATA]: (state, action) => ({
-//         //     ...state,
-//         //     id: action.payload,
-//         //     password: action.payload,
-//         // })
-//     },
-//     initialState
-// )
-
-// export default auth;
+export default auth;

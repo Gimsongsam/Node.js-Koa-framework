@@ -5,16 +5,19 @@ import AuthRegister from './auth_register';
 import AuthLogin from './auth_login';
 import './auth.scss';
 
-const Auth = () => {
+const Auth = ({username, password, input}) => {
     return (
         <div className="auth_style">
             <h3>REACTERS</h3>
-            {/* <AuthRegister /> */}
             <Route path="/register">
                 <AuthRegister />
             </Route>
             <Route path="/login">
-                <AuthLogin />
+                <AuthLogin  
+                    username={username}
+                    password={password}
+                    input={input}
+                />
             </Route>
         </div>
     );
