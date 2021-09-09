@@ -6,7 +6,12 @@ export const login = (input) => axios.post('http://localhost:4000/api/auth/login
                 username: input.username,
                 password: input.password
             });
-export const register = () => axios.post(`http://localhost:4000/api/auth/register`);
+export const register = (input) => axios.post('http://localhost:4000/api/auth/register',
+            {   
+                // withCredentials: true,
+                username: input.username,
+                password: input.password
+            });
 
 // export const login = () => axios.post(`${url}/api/auth/login`);
 

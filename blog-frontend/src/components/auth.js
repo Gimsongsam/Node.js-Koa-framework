@@ -1,23 +1,20 @@
 import React from 'react';
 // import styled from 'styled-components';
 import {Route} from 'react-router-dom';
-import AuthRegister from './auth_register';
-import AuthLogin from './auth_login';
+// import AuthRegister from './auth_register';
+import LoginContainer from '../containers/LoginContainer';
 import './auth.scss';
+import RegisterContainer from '../containers/RegisterContainer';
 
-const Auth = ({username, password, input}) => {
+const Auth = () => {
     return (
         <div className="auth_style">
             <h3>REACTERS</h3>
             <Route path="/register">
-                <AuthRegister />
+                <RegisterContainer />
             </Route>
             <Route path="/login">
-                <AuthLogin  
-                    username={username}
-                    password={password}
-                    input={input}
-                />
+                <LoginContainer />
             </Route>
         </div>
     );

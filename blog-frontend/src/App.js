@@ -1,10 +1,10 @@
 import React from 'react';
-// import Auth from './components/auth';
-import AuthContainer from './containers/AuthContainer';
+import Auth from './components/Auth';
+import LoginContainer from './containers/LoginContainer';
 
 const App = () => {
   return (
-    <AuthContainer />
+    <Auth />
   )
 }
 
