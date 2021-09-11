@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"name": "blog-frontend",
+			"path": ".."
+		},
+		{
+			"name": "blog-backend",
+			"path": "../../blog-backend"
+		}
+	],
+	"settings": {}
+}
