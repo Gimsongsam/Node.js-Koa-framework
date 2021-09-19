@@ -5,7 +5,7 @@ import bodyParser from 'koa-bodyparser';
 import mongoose from 'mongoose';
 
 // const { createProxyMiddleware } = require('http-proxy-middleware');
-const cors = require('@koa/cors');
+// const cors = require('@koa/cors');
 // import cors from 'cors';
 
 import api from './api';
@@ -31,12 +31,12 @@ const app = new Koa();
 const router = new Router();
 
 // cors 설정
-app.use(cors({
-    // origin: '*',
-    // credentials: false,
-}));
+// app.use(cors({
+//     // origin: '*',
+//     // credentials: false,
+// }));
 
-app.proxy = true
+// app.proxy = true
 
 // 라우터 설정
 router.use('/api', api.routes()); // api 라우트 적용
