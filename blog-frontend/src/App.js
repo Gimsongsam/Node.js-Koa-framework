@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
 import {Route} from 'react-router-dom';
 import PostListPage from './pages/PostListPage';
@@ -14,7 +14,7 @@ const App = () => {
       <Route component={LoginPage} path='/login' />
       <Route component={RegisterPage} path='/register' />
       <Route component={WritePage} path='/write' />
-      <Route component={WritePage} path='/@:username/:postId' />
+      <Route component={PostPage} path='/@:username/:postId' />
     </>
   )
 }

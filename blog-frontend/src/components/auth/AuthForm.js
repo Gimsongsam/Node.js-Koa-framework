@@ -103,7 +103,7 @@ const AuthForm = ({type, form, onChange, onSubmit, error}) => {
                     />
                 )}
                 {error && <ErrorMessage>{error}</ErrorMessage>}
-                <ButtonWithMarginTop cyan fullWidth style={{marginTop: '1rem'}}> {/* cyan={true} fullwidth={true} */}
+                <ButtonWithMarginTop cyan fullWidth > {/* cyan={true} fullwidth={true} */}
                     {text}
                 </ButtonWithMarginTop>
             </form>

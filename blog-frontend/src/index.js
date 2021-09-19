@@ -9,6 +9,7 @@ import {createStore, applyMiddleware} from 'redux';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
 import rootReducer, {rootSaga} from './modules';
+import {tempSetUser, check} from './modules/user';
 
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
@@ -16,7 +17,23 @@ const store = createStore(
   composeWithDevTools(applyMiddleware(sagaMiddleware)),
   );
 
-  sagaMiddleware.run(rootSaga);
+function loadUser(){
+  try{
+    const user = localStorage.getItem('user');
+    if(!user) return; // 로그인 상태가 아니라면 아무것도 안 함
+    store.dispatch(tempSetUser(JSON.parse(user)));
+    // CHECK 액션이 디스패치되면 사가를 통해 /api/check API를 호출
+    store.dispatch(check());
+  } catch(e){
+    console.log('localStorage is not working');
+  }
+}
+
+sagaMiddleware.run(rootSaga);
+// 먼저 호출하면 rootSaga가 실행되기 전에 먼저 호출되기 때문에 saga에서 제대로 이를 처리하지 않는다.
+loadUser()
+
+sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
   <Provider store={store}>
