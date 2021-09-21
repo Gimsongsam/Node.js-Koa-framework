@@ -31,7 +31,7 @@ const AuthRegister = ({
                 onClick={() => register(input)}
             >회원가입</button>
 
-            <Link to="/login">로그인</Link>
+            <Link className="auth_link" to="/login">로그인</Link>
         </div>
     )
 }

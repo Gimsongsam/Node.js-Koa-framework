@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {username, password, login} from '../modules/auth';
-import AuthLogin from '../components/auth_login';
+import AuthLogin from '../components/auth/auth_login';
 
 const LoginContainer = ({
     input,

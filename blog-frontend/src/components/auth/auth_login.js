@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, {useState, useEffect, useCallback} from 'react';
 import {Route, Link } from 'react-router-dom';
 import './authInput.scss';
-import * as api from '../lib/api';
+// import * as api from '../lib/api';
 
 const AuthLogin = ({
     username,
@@ -10,27 +10,6 @@ const AuthLogin = ({
     input,
     login,
 }) => {
-
-    // const [alert, setAlert] = useState('');
-
-    // //api 요청하기
-    // const onSubmit = async () => {
-    //     if(input.username.length === 0 || input.password.length === 0){
-    //         setAlert('빈 칸을 모두 입력하세요.');
-    //     }else{
-    //         try{
-    //             await axios.post('http://localhost:4000/api/auth/login',
-    //             {   
-    //                 // withCredentials: true,
-    //                 username: input.username,
-    //                 password: input.password
-    //             })
-    //         } catch(e){
-    //             setAlert('아이디 혹은 비밀번호가 일치하지 않습니다.');
-    //             console.log(e)
-    //         }
-    //     }
-    // }
 
     
     const onChange_username = e => console.log(username(e.target.value))
@@ -55,7 +34,7 @@ const AuthLogin = ({
                 onClick={() => login(input)}
             >로그인</button>
 
-            <Link to="/register">회원가입</Link>
+            <Link className="auth_link" to="/register">회원가입</Link>
         </div>
     )
 }

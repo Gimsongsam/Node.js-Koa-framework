@@ -2,9 +2,9 @@ import React from 'react';
 // import styled from 'styled-components';
 import {Route} from 'react-router-dom';
 // import AuthRegister from './auth_register';
-import LoginContainer from '../containers/LoginContainer';
+import LoginContainer from '../../containers/LoginContainer';
 import './auth.scss';
-import RegisterContainer from '../containers/RegisterContainer';
+import RegisterContainer from '../../containers/RegisterContainer';
 
 const Auth = () => {
     return (
