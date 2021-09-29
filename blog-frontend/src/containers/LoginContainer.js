@@ -1,31 +1,40 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {username, password, login} from '../modules/auth';
-import AuthLogin from '../components/auth/auth_login';
+import {useDispatch, useSelector} from 'react-redux';
+import { changeField } from '../modules/auth';
+import AuthForm from '../components/auth/AuthForm';
 
-const LoginContainer = ({
-    input,
-    username,
-    password,
-    login,
-}) => {
-    return (
-        <AuthLogin
-            username={username}
-            password={password}
-            input={input}
-            login={login}
-        />
-    );
-};
 
-export default connect(
-    ({auth}) => ({
-        input: auth.input
-    }),
-    {
-        username,
-        password,
-        login,
+const LoginForm = () => {
+    const dispatch = useDispatch()
+    const {form} = useSelector(({auth}) => ({
+        form: auth.login
+    }));
+    // console.log(form)
+
+    const onChange = e => {
+        const {value, name} = e.target;
+        console.log(name, value)
+        dispatch(
+            changeField({
+                form: 'login',
+                key: name,
+                value
+        }));
     }
-)(LoginContainer)
+
+    const onSubmit = () => {
+        // 구현예정
+    }
+
+    return (
+        <AuthForm
+        type="login"
+        form={form}
+        onChange={onChange}
+        onSubmit={onSubmit}
+    />
+    )
+    
+}
+
+export default LoginForm;

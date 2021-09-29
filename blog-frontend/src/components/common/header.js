@@ -35,6 +35,7 @@ const StyledButton = css`
     /* text-decoration: none; */
     line-height: 1;
     cursor: pointer;
+    font-weight: 500;
     &:hover{
         background-color: #70bdcc;
     }
@@ -59,7 +60,7 @@ const Header = () => {
         <>
             <HeaderBlock>
                 <Wrapper>
-                    <logo>React</logo>
+                    <div className="logo">REACTERS</div>
                     <div className="right">
                         <Button to="login">로그인</Button>
                     </div>
