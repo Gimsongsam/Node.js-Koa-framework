@@ -10,7 +10,7 @@ import produce from 'immer';
 // const LOGIN_SUCCESS = 'auth/LOGIN_SUCCESS';
 // const REGISTER = 'auth/REGISTER';
 // const REGISTER_SUCCESS = 'auth/REGISTER_SUCCESS';
-const CHANGE_FIELD = 'auth/CHANGE_FILED';
+const CHANGE_FIELD = 'auth/CHANGE_FIELD';
 
 // 액션 생성자 함수
 // export const login = createAction(LOGIN, input => input);
@@ -38,14 +38,16 @@ const initialState = {
     }
 }
 
+// console.log(initialState.login.username)
+
 const auth = handleActions(
     {
-        // [CHANGE_FIELD]: (state, {payload: form, value, key}) => {
-        //     produce(state, draft => {
-        //         draft[form][key] = value
-        //         console.log(draft)
-        //     })
-        // }
+        [CHANGE_FIELD]: (state, {payload: {form, value, key}}) => {
+            produce(state, draft => {
+                draft[form][key] = value;
+                // console.log(draft)
+            })
+        }
     },
     initialState
 );

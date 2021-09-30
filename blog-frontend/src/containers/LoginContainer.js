@@ -5,7 +5,7 @@ import AuthForm from '../components/auth/AuthForm';
 
 
 const LoginForm = () => {
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
     const {form} = useSelector(({auth}) => ({
         form: auth.login
     }));
@@ -14,12 +14,16 @@ const LoginForm = () => {
     const onChange = e => {
         const {value, name} = e.target;
         console.log(name, value)
-        dispatch(
-            changeField({
-                form: 'login',
-                key: name,
-                value
-        }));
+        // console.log(e.target)
+        // form.username = value
+        // console.log(form.username)
+            dispatch(
+                changeField({
+                    form: 'login',
+                    key: name,
+                    value
+            })
+        );
     }
 
     const onSubmit = () => {

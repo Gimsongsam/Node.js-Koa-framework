@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -75,9 +75,19 @@ const AuthInput = styled.div`
 
 const AuthForm = ({type, text, form, onChange}) => {
 
+    // const [test, setTset] = useState('')
+
+    // const onChange = (e) => {
+    //     const {value, name} = e.target;
+    //     console.log(e.target.value);
+    //     // setTset(value)
+    // }
+
+    
     return(
         <AuthInput>
-            {/* {console.log(form)} */}
+            {/* {console.log(form.username)} */}
+            {/* {console.log(onChange)} */}
             <p>{text}</p>
             <form className="auth_input">
                 <input
