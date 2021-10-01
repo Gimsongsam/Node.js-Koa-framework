@@ -74,20 +74,11 @@ const AuthInput = styled.div`
 `;
 
 const AuthForm = ({type, text, form, onChange}) => {
-
-    // const [test, setTset] = useState('')
-
-    // const onChange = (e) => {
-    //     const {value, name} = e.target;
-    //     console.log(e.target.value);
-    //     // setTset(value)
-    // }
-
     
     return(
         <AuthInput>
             {/* {console.log(form.username)} */}
-            {/* {console.log(onChange)} */}
+            {/* {console.log(text)} */}
             <p>{text}</p>
             <form className="auth_input">
                 <input
@@ -119,13 +110,10 @@ const AuthForm = ({type, text, form, onChange}) => {
                 // onClick={() => login(input)}
             >{text}</button>
 
-            {type === 'register' &&
-                <Link className="auth_link" to="/login">로그인</Link>
+            {type === 'register' ? 
+                (<Link className="auth_link" to="/login">로그인</Link>) : 
+                (<Link className="auth_link" to="/register">회원가입</Link>)
             }
-            {type === 'login' &&
-                <Link className="auth_link" to="/register">회원가입</Link>
-            }
-            
         </AuthInput>
     );
 };

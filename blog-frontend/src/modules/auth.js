@@ -1,6 +1,6 @@
 import {createAction, handleActions} from 'redux-actions';
-import * as api from '../lib/api';
-import {call, put, takeEvery} from 'redux-saga/effects'
+// import * as api from '../lib/api';
+// import {call, put, takeEvery} from 'redux-saga/effects'
 import produce from 'immer';
 
 //액션 타입 설정하기
@@ -38,16 +38,15 @@ const initialState = {
     }
 }
 
-// console.log(initialState.login.username)
-
 const auth = handleActions(
     {
         [CHANGE_FIELD]: (state, {payload: {form, value, key}}) => {
-            produce(state, draft => {
-                draft[form][key] = value;
-                // console.log(draft)
-            })
-        }
+            return(
+                produce(state, draft => {
+                    draft[form][key] = value;
+                })
+            )},
+        
     },
     initialState
 );

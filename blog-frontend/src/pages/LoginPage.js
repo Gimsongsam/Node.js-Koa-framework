@@ -4,12 +4,10 @@ import AuthTemplate from '../components/auth/AuthTemplate';
 import LoginContainer from '../containers/LoginContainer';
 
 const LoginPage = () => {
-    const text = '로그인';
-
     return(
         <div>
             <AuthTemplate>
-                <LoginContainer text={text} />
+                <LoginContainer />
             </ AuthTemplate>
         </div>
     );
