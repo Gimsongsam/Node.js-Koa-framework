@@ -1,13 +1,13 @@
 import React from 'react';
 import Header from '../components/common/header';
+import PostForm from '../components/post/PostForm';
 
 const PostList = () => {
     return(
         <div>
             <Header />
-            <div >포스트 리스트</div>
+            <PostForm />
         </div>
-        
     );
 };
 

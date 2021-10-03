@@ -6,11 +6,12 @@ import produce from 'immer';
 //액션 타입 설정하기
 // 인풋값 설정 액션
 
-// const LOGIN = 'auth/LOGIN';
+const LOGIN = 'auth/LOGIN';
 // const LOGIN_SUCCESS = 'auth/LOGIN_SUCCESS';
 // const REGISTER = 'auth/REGISTER';
 // const REGISTER_SUCCESS = 'auth/REGISTER_SUCCESS';
 const CHANGE_FIELD = 'auth/CHANGE_FIELD';
+const INITIALIZE = 'auth/INITIALIZE';
 
 // 액션 생성자 함수
 // export const login = createAction(LOGIN, input => input);
@@ -25,6 +26,8 @@ export const changeField = createAction(
     }),
 );
 
+export const initialize = createAction(INITIALIZE);
+export const login = createAction(LOGIN);
 
 const initialState = {
     register: {
@@ -45,8 +48,9 @@ const auth = handleActions(
                 produce(state, draft => {
                     draft[form][key] = value;
                 })
-            )},
-        
+            )
+        },
+        [INITIALIZE]: (state) => initialState
     },
     initialState
 );

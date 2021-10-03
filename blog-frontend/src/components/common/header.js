@@ -8,6 +8,7 @@ const HeaderBlock = styled.div`
     width: 100%;
     /* height: 3rem; */
     box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.25);
+    background-color: #f7f7f7;
 `;
 
 const Wrapper = styled(Responsive)`
@@ -19,11 +20,7 @@ const Wrapper = styled(Responsive)`
         font-size: 1.125rem;
         font-weight: 800;
         letter-spacing: 2px;
-    }
-    .right{
-        /* display: flex;
-        align-items: center;
-        padding: 0.5rem; */
+        color: #333;
     }
 `;
 
@@ -60,13 +57,14 @@ const Header = () => {
         <>
             <HeaderBlock>
                 <Wrapper>
-                    <div className="logo">REACTERS</div>
+                    <Link to='/' className="logo">REACTERS</Link>
                     <div className="right">
                         <Button to="login">로그인</Button>
                     </div>
                 </Wrapper>
             </HeaderBlock>
             <Spacer />
+
         </>
     );
 };

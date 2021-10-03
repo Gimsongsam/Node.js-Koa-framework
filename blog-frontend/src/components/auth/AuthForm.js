@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import Button from '../common/button';
 
 const AuthInput = styled.div`
 
@@ -40,27 +41,6 @@ const AuthInput = styled.div`
         padding-bottom: 20px;
     }
 
-    .auth_btn{
-        display: block;
-        width: 100%;
-        height: 50px;
-
-        border: none;
-        border-radius: 5px;
-
-        background: #87b6c9;
-
-        color: #fff;
-        font-weight: bold;
-        font-size: 18px;
-
-        margin-bottom: 60px;
-        cursor: pointer;
-    }
-    .auth_btn:hover{
-        background: #6ea3ba;
-    }
-
     .auth_link{
         text-underline-position: under;
         text-decoration: underline;
@@ -73,14 +53,14 @@ const AuthInput = styled.div`
     }
 `;
 
-const AuthForm = ({type, text, form, onChange}) => {
+const AuthForm = ({type, text, form, onChange, onSubmit}) => {
     
     return(
         <AuthInput>
             {/* {console.log(form.username)} */}
             {/* {console.log(text)} */}
             <p>{text}</p>
-            <form className="auth_input">
+            <form className="auth_input" onSubmit={onSubmit}>
                 <input
                     type="text"
                     placeholder="아이디" 
@@ -104,11 +84,13 @@ const AuthForm = ({type, text, form, onChange}) => {
                         {/* {alert} */}
                 </p>
 
+                <Button
+                    className="auth_btn" type="submit"
+                    // onClick={() => login(input)}
+                >{text}</Button>
+
             </form>
-            <button
-                className="auth_btn" type="submit"
-                // onClick={() => login(input)}
-            >{text}</button>
+            
 
             {type === 'register' ? 
                 (<Link className="auth_link" to="/login">로그인</Link>) : 

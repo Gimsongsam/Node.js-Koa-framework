@@ -2,15 +2,19 @@ import { call, put } from "@redux-saga/core/effects";
 
 export const requestSaga = (type, request) => {
     const SUCEESS = `${type}_SUCEESS`;
-    const FAILURE = `${type}_FAILURE`;
+    // const FAILURE = `${type}_FAILURE`;
 
     return(
         function* (action){
-            yield put()
+            // yield put(SUCEESS)
             try{
-                yield call();
+                const response = yield call(request, action.payload);
+                yield put({
+                    type: SUCEESS,
+                    payload: response.data
+                })
             }catch(e){
-        
+                console.log(e)
             }
         }
     );

@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import { changeField } from '../modules/auth';
+import { changeField, initialize, login } from '../modules/auth';
 import AuthForm from '../components/auth/AuthForm';
-
+import { requestLogin } from '../lib/api';
+import { requestSaga } from '../lib/requestSaga';
 
 const LoginForm = () => {
     const dispatch = useDispatch();
@@ -10,6 +11,10 @@ const LoginForm = () => {
         form: auth.login,
         text: '로그인'
     }));
+
+    useEffect(() => {
+        dispatch(initialize());
+    }, [dispatch])
 
     const onChange = e => {
         const {value, name} = e.target;
@@ -25,8 +30,10 @@ const LoginForm = () => {
         );
     }
 
-    const onSubmit = () => {
-        // 구현예정
+    const onSubmit = (e) => {
+        e.preventDefault()
+        console.log(e)
+        requestSaga(login, requestLogin)
     }
 
     return (
