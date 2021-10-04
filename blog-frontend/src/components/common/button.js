@@ -14,7 +14,7 @@ const StyledButton = styled.button`
 
         color: #fff;
         font-weight: bold;
-        font-size: 18px;
+        /* font-size: 18px; */
 
         cursor: pointer;
 
@@ -37,7 +37,7 @@ const StyledLink = styled(Link)`
 
         color: #fff;
         font-weight: bold;
-        font-size: 18px;
+        /* font-size: 18px; */
 
         cursor: pointer;
 

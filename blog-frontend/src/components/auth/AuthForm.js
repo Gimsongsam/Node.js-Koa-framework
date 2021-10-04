@@ -41,7 +41,7 @@ const AuthInput = styled.div`
         padding-bottom: 20px;
     }
 
-    .auth_link{
+    /* .auth_link{
         text-underline-position: under;
         text-decoration: underline;
 
@@ -50,7 +50,19 @@ const AuthInput = styled.div`
 
         color: #828282;
         text-align: right;
+    } */
+`;
+
+const AuthLink = styled.div`
+    text-align: right;
+    padding-top: 25px;
+
+    a{
+        text-underline-position: under;
+        text-decoration: underline;
+        color: #828282;
     }
+    
 `;
 
 const AuthForm = ({type, text, form, onChange, onSubmit}) => {
@@ -91,11 +103,13 @@ const AuthForm = ({type, text, form, onChange, onSubmit}) => {
 
             </form>
             
-
-            {type === 'register' ? 
-                (<Link className="auth_link" to="/login">로그인</Link>) : 
-                (<Link className="auth_link" to="/register">회원가입</Link>)
-            }
+            <AuthLink>
+                {type === 'register' ? 
+                    (<Link className="auth_link" to="/login">로그인</Link>) : 
+                    (<Link className="auth_link" to="/register">회원가입</Link>)
+                }
+            </AuthLink>
+            
         </AuthInput>
     );
 };

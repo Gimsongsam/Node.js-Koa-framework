@@ -2,11 +2,11 @@ import React from 'react';
 // import Auth from './components/auth/Auth';
 // import Header from './components/common/header';
 import {Route} from 'react-router-dom';
-import PostList from './pages/PostList';
+import PostList from './pages/PostListPage';
 import LoginPage from './pages/LoginPage';
 import Register from './pages/RegisterPage'
-import WritePost from './pages/WritePost';
-import PostView from './pages/PostView';
+import WritePost from './pages/WritePostPage';
+import PostView from './pages/PostViewPage';
 
 const App = () => {
   return (

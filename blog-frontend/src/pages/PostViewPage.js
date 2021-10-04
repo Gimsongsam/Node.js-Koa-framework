@@ -2,8 +2,8 @@ import React from 'react';
 import PostView from '../components/post/PostView'
 
 
-const PostViewer = () => {
+const PostViewPage = () => {
     return <PostView />
 }
 
-export default PostViewer;
+export default PostViewPage;

@@ -12,12 +12,12 @@ const Wrapper = styled(Responsive)`
     .button_spacing{
         width: 100%;
         text-align: right;
-        font-size: 0;
     }
 
     .pagination{
         display: flex;
         justify-content: center;
+        align-items: center;
     }
 `;
 

@@ -2,7 +2,7 @@ import React from 'react';
 import Header from '../components/common/header';
 import PostForm from '../components/post/PostForm';
 
-const PostList = () => {
+const PostListPage = () => {
     return(
         <div>
             <Header />
@@ -11,4 +11,4 @@ const PostList = () => {
     );
 };
 
-export default PostList;
+export default PostListPage;

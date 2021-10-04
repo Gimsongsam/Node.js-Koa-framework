@@ -8,6 +8,8 @@ const Wrapper = styled(Responsive)`
     padding-top: 100px;
 `;
 
+
+
 const PostView = () => {
     return (
         <>
