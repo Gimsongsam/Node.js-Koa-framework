@@ -89,7 +89,13 @@ const AuthForm = ({type, text, form, onChange, onSubmit}) => {
                 />
 
                 {type === 'register' &&
-                    <input type="password" placeholder="비밀번호 확인" />
+                    <input 
+                        type="password"
+                        placeholder="비밀번호 확인"
+                        onChange={onChange}
+                        value={form.password_confirm}
+                        name="password_confirm"
+                    />
                 }
 
                 <p className="alert_text">

@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import { changeField, initialize, login } from '../modules/auth';
+import { changeField, initialize, createlogin } from '../modules/auth';
 import AuthForm from '../components/auth/AuthForm';
-import { requestLogin } from '../lib/api';
-import { requestSaga } from '../lib/requestSaga';
+// import { requestLogin } from '../lib/api';
+// import requestSaga from '../lib/requestSaga';
 
 const LoginForm = () => {
     const dispatch = useDispatch();
@@ -30,10 +30,12 @@ const LoginForm = () => {
         );
     }
 
+    // console.log(form);
+
     const onSubmit = (e) => {
-        e.preventDefault()
-        console.log(e)
-        requestSaga(login, requestLogin)
+        e.preventDefault();
+        console.log(e);
+        dispatch(createlogin(form));
     }
 
     return (

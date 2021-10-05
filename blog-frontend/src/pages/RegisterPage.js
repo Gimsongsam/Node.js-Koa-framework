@@ -1,14 +1,13 @@
 import React from 'react';
-import AuthForm from '../components/auth/AuthForm';
 import AuthTemplate from '../components/auth/AuthTemplate';
+import RegisterContainer from '../containers/RegisterContainer';
 
 const RegisterPage = () => {
-    const text = '회원가입';
 
     return(
         <div>
             <AuthTemplate>
-                <AuthForm text={text} />
+                <RegisterContainer/>
             </ AuthTemplate>
         </div>
     );
