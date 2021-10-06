@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-// import LoginContainer from '../containers/LoginContainer';
-// import RegisterContainer from '../containers/RegisterContainer';
+import {Link} from 'react-router-dom';
 
 const AuthStyle = styled.div`    
     background: #fff;
@@ -11,22 +10,24 @@ const AuthStyle = styled.div`
     position: fixed;
     top: 50%; left: 50%;
     transform: translate(-50%, -50%);
+`;
 
-    h3{
+const Title = styled(Link)`
+        display: block;
         font-size: 24px;
         letter-spacing: 4px;
         font-weight: 800;
         text-align: center;
         color: #333;
         padding-bottom: 30px;
-    }
-`;
+        cursor: pointer;
+`
 
 
 const AuthTemplate = ({children}) => {
     return (
         <AuthStyle>
-            <h3>REACTERS</h3>
+            <Title to='/'>REACTERS</Title>
             {children}
         </AuthStyle>
     );

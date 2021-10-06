@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import { changeField, initialize, createRegister } from '../modules/auth';
+import { changeField, initialize, createregister } from '../modules/auth';
 import AuthForm from '../components/auth/AuthForm';
-// import { requestLogin } from '../lib/api';
-// import requestSaga from '../lib/requestSaga';
+// import { useHistory } from 'react-router';
 
 const LoginForm = () => {
     const dispatch = useDispatch();
@@ -19,8 +18,6 @@ const LoginForm = () => {
     const onChange = e => {
         const {value, name} = e.target;
         console.log(name, value)
-        // console.log(e.target)
-        // console.log(form.username)
         dispatch(
             changeField({
                 form: 'register',
@@ -30,12 +27,14 @@ const LoginForm = () => {
         );
     }
 
-    // console.log(form);
-
+    // const history = useHistory();
     const onSubmit = (e) => {
         e.preventDefault();
         console.log(e);
-        dispatch(createRegister(form));
+        dispatch(createregister(form));
+
+        //useHistory 사용
+        // history.push('/');
     }
 
     return (

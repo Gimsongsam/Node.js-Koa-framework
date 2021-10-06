@@ -1,6 +1,4 @@
 import React from 'react';
-// import Auth from './components/auth/Auth';
-// import Header from './components/common/header';
 import {Route} from 'react-router-dom';
 import PostList from './pages/PostListPage';
 import LoginPage from './pages/LoginPage';
@@ -11,7 +9,7 @@ import PostView from './pages/PostViewPage';
 const App = () => {
   return (
     <div>
-      <Route component={PostList} path='/' exact={true}/> {/* path={'/@:username', '/']} */}
+      <Route component={PostList} path={['/@:username', '/']} exact={true}/>
       <Route component={LoginPage} path='/login' />
       <Route component={RegisterPage} path='/register' />
       <Route component={WritePost} path='/write' />

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from '../common/button';
@@ -70,7 +70,6 @@ const AuthForm = ({type, text, form, onChange, onSubmit}) => {
     return(
         <AuthInput>
             {/* {console.log(form.username)} */}
-            {/* {console.log(text)} */}
             <p>{text}</p>
             <form className="auth_input" onSubmit={onSubmit}>
                 <input

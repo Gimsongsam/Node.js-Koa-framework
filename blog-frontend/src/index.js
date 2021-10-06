@@ -1,30 +1,42 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Provider} from 'react-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import {createStore, applyMiddleware} from 'redux';
-// import auth from './modules/auth'
+import {Provider} from 'react-redux';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Router } from 'react-router-dom';
 import rootReducer, {rootSaga} from './modules';
 import createSagaMiddleware from 'redux-saga';
+import ReduxThunk from 'redux-thunk';
+import { createBrowserHistory } from 'history';
 
-const sagaMiddleware = createSagaMiddleware();
+const customHistory = createBrowserHistory();
+const sagaMiddleware = createSagaMiddleware({
+  context: {
+    history: customHistory
+  }
+});
 
 const store = createStore(
-  rootReducer, composeWithDevTools(applyMiddleware(sagaMiddleware))
+  rootReducer,
+  composeWithDevTools(
+    applyMiddleware(
+      ReduxThunk.withExtraArgument({history: customHistory}),
+      sagaMiddleware)),
 );
 sagaMiddleware.run(rootSaga);
 
-
 ReactDOM.render(
-  <Provider store={store}>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </Provider>,
+  <Router history={customHistory}>
+    <Provider store={store}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </Provider>
+  </Router>,
+  
   document.getElementById('root')
 );
 

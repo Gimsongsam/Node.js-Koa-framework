@@ -2,8 +2,7 @@ import React, { useEffect } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import { changeField, initialize, createlogin } from '../modules/auth';
 import AuthForm from '../components/auth/AuthForm';
-// import { requestLogin } from '../lib/api';
-// import requestSaga from '../lib/requestSaga';
+// import { useHistory } from 'react-router';
 
 const LoginForm = () => {
     const dispatch = useDispatch();
@@ -18,9 +17,7 @@ const LoginForm = () => {
 
     const onChange = e => {
         const {value, name} = e.target;
-        console.log(name, value)
-        // console.log(e.target)
-        // console.log(form.username)
+        console.log(name, value);
         dispatch(
             changeField({
                 form: 'login',
@@ -30,24 +27,26 @@ const LoginForm = () => {
         );
     }
 
-    // console.log(form);
-
+    // const history = useHistory();
     const onSubmit = (e) => {
         e.preventDefault();
         console.log(e);
         dispatch(createlogin(form));
+        // 로그읜 성공하면
+        // history.push('/');
+        // 로그인 실패하면 안넘어가게!?
+        //useHistory 사용
     }
 
     return (
         <AuthForm
-        type="login"
-        form={form}
-        onChange={onChange}
-        onSubmit={onSubmit}
-        text={text}
+            type="login"
+            form={form}
+            onChange={onChange}
+            onSubmit={onSubmit}
+            text={text}
     />
     )
-    
 }
 
 export default LoginForm;
