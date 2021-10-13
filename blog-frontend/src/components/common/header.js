@@ -1,7 +1,8 @@
 import React from 'react';
-import styled, {css} from 'styled-components';
+import styled from 'styled-components';
 import Responsive from './responsive';
 import {Link} from 'react-router-dom';
+import Button from './button';
 
 const HeaderBlock = styled.div`
     position: fixed;
@@ -34,46 +35,44 @@ const Wrapper = styled(Responsive)`
     }
 `;
 
-const StyledButton = css`
-    display: block;
-    /* width: 4rem; */
-    padding: 0.25rem 1rem;
-    background-color: #333;
-    border-radius: 4px;
-    color: #fff;
-    /* text-decoration: none; */
-    line-height: 1rem;
-    cursor: pointer;
-    font-weight: 500;
-    &:hover{
-        background-color: #444;
-    }
-`;
-
-const StyledLink = styled(Link)`
-    ${StyledButton}
-`;
-
 const Spacer = styled.div`
     height: 4rem;
 `
 
-const Button = (props) => {
-    return(
-        <StyledLink {...props} />
-    );
-}
+const UserButton = styled(Button)`
+    display: block;
+    /* width: 1.5rem; */
+    padding: 0 10px;
+    height: 1.5rem;
+    line-height: 1.5rem;
+    background-color: #333;
+    text-align: center;
+    &:hover{
+        background-color: #444;
+    }
+`
 
-const Header = () => {
+
+const Header = ({userId, onLogout}) => {
+
+    // const parseUserId = userId.replace('/@:', '');
+    // const dispatch = useDispatch();
+
     return (
         <>
             <HeaderBlock>
                 <Wrapper>
                     <Link to='/' className="logo">REACTERS</Link>
-                    <div className="right">
-                        <span>userId</span>
-                        <Button to="login">로그인</Button>
-                    </div>
+                        {userId === '' ? (
+                            <div className="right">
+                                <UserButton to="login">로그인</UserButton>
+                            </div>
+                        ) : (
+                            <div className="right">
+                                <span>{userId}</span>
+                                <UserButton to='/' onClick={() => onLogout()}>로그아웃</UserButton>
+                            </div>
+                        )}
                 </Wrapper>
             </HeaderBlock>
             <Spacer />

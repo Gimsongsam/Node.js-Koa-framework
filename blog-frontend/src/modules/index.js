@@ -1,9 +1,25 @@
 import { all } from 'redux-saga/effects';
 import {combineReducers} from 'redux';
 import auth, {createSaga} from './auth';
+import user from './user';
+import loading from './loading';
+import {persistReducer} from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+
+const persistConfig = {
+    key: 'root',
+    // localStorage에 저장합니다.
+    storage,
+    // user reducer만 localstorage에 저장합니다.
+    whitelist: ["user"]
+    // blacklist -> 그것만 제외합니다.
+}
+
 
 const rootReducer = combineReducers({
     auth,
+    loading,
+    user
 });
 
 export function* rootSaga(){
@@ -12,4 +28,4 @@ export function* rootSaga(){
     yield all([createSaga()]);
 }
 
-export default rootReducer;
+export default persistReducer(persistConfig, rootReducer);

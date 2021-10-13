@@ -1,23 +1,30 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import { changeField, initialize, createlogin } from '../modules/auth';
+import { changeField, initialize, createlogin,} from '../modules/auth';
+import {check} from '../modules/user';
 import AuthForm from '../components/auth/AuthForm';
-// import { useHistory } from 'react-router';
+import { withRouter } from 'react-router-dom';
+import { useHistory } from 'react-router';
 
-const LoginForm = () => {
+const LoginContainer = () => {
     const dispatch = useDispatch();
-    const {form, text} = useSelector(({auth}) => ({
+    const {form, text, error, auth, userState, userId} = useSelector(({auth, user}) => ({
         form: auth.login,
-        text: '로그인'
+        text: '로그인',
+        error: auth.authError,
+        auth: auth.auth,
+        userState: user.userState,
+        userId: user.userId
     }));
 
     useEffect(() => {
         dispatch(initialize());
-    }, [dispatch])
+    },[dispatch]);
 
+    
     const onChange = e => {
         const {value, name} = e.target;
-        console.log(name, value);
+        // console.log(name, value);
         dispatch(
             changeField({
                 form: 'login',
@@ -27,16 +34,43 @@ const LoginForm = () => {
         );
     }
 
-    // const history = useHistory();
+    const [errorMessage, setErrorMessage] = useState('');
+    const {username, password} = form;
+    
+    const history = useHistory();
+    
     const onSubmit = (e) => {
         e.preventDefault();
-        console.log(e);
+        // console.log(e);
         dispatch(createlogin(form));
-        // 로그읜 성공하면
-        // history.push('/');
-        // 로그인 실패하면 안넘어가게!?
-        //useHistory 사용
+
+        if(username.length === 0 || password.length === 0){
+            setErrorMessage('빈칸을 모두 입력해주세요');
+            return
+        }else if(error === 401){
+            setErrorMessage('아이디 혹은 비밀번호가 일치하지 않습니다.');
+            return
+        }
+        // console.log('test');
     }
+
+    useEffect(() => {
+        if(auth){
+            console.log('로그인 성공: ', auth);
+            dispatch(check(username, true))
+        }
+    },[auth, history, dispatch, username])
+
+    useEffect(() => {
+        if(userState){
+            console.log(userState);
+            history.push(`/@:${userId}`);
+        }
+    },[userId, dispatch, userState, history])
+
+    
+    
+    
 
     return (
         <AuthForm
@@ -45,8 +79,9 @@ const LoginForm = () => {
             onChange={onChange}
             onSubmit={onSubmit}
             text={text}
+            errorMessage={errorMessage}
     />
     )
 }
 
-export default LoginForm;
+export default withRouter(LoginContainer);

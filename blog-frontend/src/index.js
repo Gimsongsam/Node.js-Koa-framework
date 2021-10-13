@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import {createStore, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
+import { persistStore } from 'redux-persist';
+import {PersistGate} from 'redux-persist/integration/react';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
@@ -12,7 +14,7 @@ import createSagaMiddleware from 'redux-saga';
 import ReduxThunk from 'redux-thunk';
 import { createBrowserHistory } from 'history';
 
-const customHistory = createBrowserHistory();
+const customHistory = createBrowserHistory({forceRefresh: true});
 const sagaMiddleware = createSagaMiddleware({
   context: {
     history: customHistory
@@ -26,14 +28,17 @@ const store = createStore(
       ReduxThunk.withExtraArgument({history: customHistory}),
       sagaMiddleware)),
 );
+const persistor = persistStore(store);
 sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
   <Router history={customHistory}>
     <Provider store={store}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <PersistGate loading={null} persistor={persistor}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </PersistGate>
     </Provider>
   </Router>,
   

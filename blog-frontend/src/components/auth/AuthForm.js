@@ -40,17 +40,6 @@ const AuthInput = styled.div`
         text-align: center;
         padding-bottom: 20px;
     }
-
-    /* .auth_link{
-        text-underline-position: under;
-        text-decoration: underline;
-
-        position: absolute;
-        right: 30px; bottom: 30px;
-
-        color: #828282;
-        text-align: right;
-    } */
 `;
 
 const AuthLink = styled.div`
@@ -62,10 +51,13 @@ const AuthLink = styled.div`
         text-decoration: underline;
         color: #828282;
     }
-    
 `;
 
-const AuthForm = ({type, text, form, onChange, onSubmit}) => {
+const AuthButton = styled(Button)`
+    height: 2rem;
+`;
+
+const AuthForm = ({type, text, form, onChange, onSubmit, errorMessage}) => {
     
     return(
         <AuthInput>
@@ -98,13 +90,13 @@ const AuthForm = ({type, text, form, onChange, onSubmit}) => {
                 }
 
                 <p className="alert_text">
-                        {/* {alert} */}
+                        {errorMessage}
                 </p>
 
-                <Button
+                <AuthButton
                     className="auth_btn" type="submit"
                     // onClick={() => login(input)}
-                >{text}</Button>
+                >{text}</AuthButton>
 
             </form>
             

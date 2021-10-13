@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom';
 const StyledButton = styled.button`
 
         width: 100%;
-        height: 50px;
+        height: 1rem;
 
         border: none;
         border-radius: 5px;
@@ -28,7 +28,7 @@ const StyledButton = styled.button`
 const StyledLink = styled(Link)`
 
         width: 100%;
-        height: 50px;
+        height: 1rem;
 
         border: none;
         border-radius: 5px;

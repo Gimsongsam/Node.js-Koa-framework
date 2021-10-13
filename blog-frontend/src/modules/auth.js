@@ -1,21 +1,25 @@
 import {createAction, handleActions} from 'redux-actions';
 import * as api from '../lib/api';
-import {takeEvery, takeLatest, getContext} from 'redux-saga/effects'
+import {takeLatest} from 'redux-saga/effects'
 import produce from 'immer';
 import requestSaga from '../lib/requestSaga';
-// import { createBrowserHistory } from 'history';
+// import {checklogin, checkregister} from './user';
 
 //액션 타입 설정하기
 const LOGIN = 'auth/LOGIN';
 const LOGIN_SUCCESS = 'auth/LOGIN_SUCCESS';
+const LOGIN_FAILURE = 'auth/LOGIN_FAILURE';
 
 const REGISTER = 'auth/REGISTER';
 const REGISTER_SUCCESS = 'auth/REGISTER_SUCCESS';
+const REGISTER_FAILURE = 'auth/REGISTER_FAILURE';
 
 const CHANGE_FIELD = 'auth/CHANGE_FIELD';
 const INITIALIZE = 'auth/INITIALIZE';
 
-const GOTO_HOME = 'auth/GOTO_HOME';
+const CHECK_USER = 'auth/CHECK_USER';
+
+// const GOTO_HOME = 'auth/GOTO_HOME';
 
 // 액션 생성자 함수
 export const changeField = createAction(
@@ -31,26 +35,17 @@ export const initialize = createAction(INITIALIZE);
 export const createlogin = createAction(LOGIN, form => form);
 export const createregister = createAction(REGISTER, form => form);
 
-export const creategotohome = createAction(GOTO_HOME);
+export const checkuser = createAction(CHECK_USER, state => state);
+
 
 // 사가 함수
 const loginSaga = requestSaga(LOGIN, api.requestLogin);
 const registerSaga = requestSaga(REGISTER, api.requestRegister);
 
-// const customHistory = createBrowserHistory({ forceRefresh: true });
-// const customHistory = createBrowserHistory();
-function* gotohomeSaga(action){
-    console.log('gotohome');
-    const history = yield getContext('history');
-    // yield customHistory.push('/');
-    history.push(`/@:${action.payload}`);
-}
-
 export function* createSaga(){
     console.log('createSaga 실행'); 
     yield takeLatest(LOGIN, loginSaga);
     yield takeLatest(REGISTER, registerSaga);
-    yield takeEvery(GOTO_HOME, gotohomeSaga);
 }
 
 
@@ -64,7 +59,9 @@ const initialState = {
     login: {
         username: '',
         password: '',
-    }
+    },
+    auth: false,
+    authError: null
 }
 
 
@@ -81,12 +78,24 @@ const auth = handleActions(
         [INITIALIZE]: (state) => initialState,
         [LOGIN_SUCCESS]: (state, action) => ({
             ...state,
-            login: console.log('action.payload', action.payload)
+            login: action.payload
         }),
         [REGISTER_SUCCESS]: (state, action) => ({
             ...state,
-            register: console.log('action.payload', action.payload)
+            register: action.payload
         }),
+        [LOGIN_FAILURE]: (state, action) => ({
+            ...state,
+            authError: action.payload,
+        }),
+        [REGISTER_FAILURE]: (state, action) => ({
+            ...state,
+            authError: action.payload,
+        }),
+        [CHECK_USER] : (state, action) => ({
+            ...state,
+            auth: true,
+        })
     },
     initialState
 );
