@@ -1,9 +1,8 @@
-import React, {useState} from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Responsive from '../common/responsive';
 import PostList from './PostContent';
 import Button from '../common/button';
-// import {Link} from 'react-router-dom';
 
 
 const Wrapper = styled(Responsive)`

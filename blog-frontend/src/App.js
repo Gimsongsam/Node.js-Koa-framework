@@ -3,7 +3,7 @@ import {Route} from 'react-router-dom';
 import PostList from './pages/PostListPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage'
-import WritePost from './pages/WritePostPage';
+import PostWritePage from './pages/PostWritePage'
 import PostView from './pages/PostViewPage';
 
 const App = () => {
@@ -12,7 +12,7 @@ const App = () => {
       <Route component={PostList} path={['/@:username', '/']} exact={true}/>
       <Route component={LoginPage} path='/login' />
       <Route component={RegisterPage} path='/register' />
-      <Route component={WritePost} path='/write' />
+      <Route component={PostWritePage} path='/write' />
       <Route component={PostView} path='/@:test1/:test1234'/> {/* /@:username/:postId */}
     </div>
   )

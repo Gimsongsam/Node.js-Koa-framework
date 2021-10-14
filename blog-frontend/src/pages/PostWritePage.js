@@ -1,9 +1,9 @@
 import React from 'react';
-import WritePost from '../components/post/WritePost';
+import PostWriteContainer from '../containers/PostWriteContainer';
 
 const WritePostPage = () => {
     return (
-        <WritePost />
+        <PostWriteContainer />
     )
 }
 

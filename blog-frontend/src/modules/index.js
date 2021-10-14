@@ -3,6 +3,7 @@ import {combineReducers} from 'redux';
 import auth, {createSaga} from './auth';
 import user from './user';
 import loading from './loading';
+import post from './post';
 import {persistReducer} from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
@@ -19,7 +20,8 @@ const persistConfig = {
 const rootReducer = combineReducers({
     auth,
     loading,
-    user
+    user,
+    post
 });
 
 export function* rootSaga(){

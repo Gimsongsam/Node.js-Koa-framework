@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Responsive from '../common/responsive';
 import Button from '../common/button';
+import TagBoxContainer from '../../containers/TagBoxContainter';
 
 const Wrapper = styled(Responsive)`
     margin-top: 4rem;
@@ -33,56 +34,6 @@ const WriteInput = styled.div`
 
 `;
 
-const TagInput = styled.div`
-    /* padding-bottom: 30px; */
-
-    p{
-        font-weight: 400;
-        font-size: 1rem;
-        padding-bottom: 5px;
-    }
-
-    input{
-        width: 13rem;
-        height: 2rem;
-        border: 1px solid #333;
-        border-radius: 5px 0 0 5px;
-        padding-left: 13px;
-        outline: none;
-    }
-
-    .input_wrap{
-        display: flex;
-    }
-`;
-
-const TagCont = styled.div`
-    ul{
-        padding: 20px 0;
-        display: flex;
-    }
-    li{
-        /* width: 1rem; */
-        background-color: #ddd;
-        margin-right: 12px;
-        padding: 5px;
-        border-radius: 3px;
-        color: #555;
-    }
-`;
-
-const TagBtn = styled(Button)`
-    width: 3rem;
-    height: 2rem;
-    background-color: #333;
-    color: #fff;
-    border-radius: 0 5px 5px 0;
-    line-height: 2rem;
-    &:hover{
-        background-color: #333;
-    }
-`;
-
 const PostBtn = styled.div`
     display: flex;
 `;
@@ -106,27 +57,28 @@ const CancelBtn = styled(Button)`
     }
 `;
 
-const WritePost = () => {
+const WritePost = ({onChange, value}) => {
+
     return (
         <Wrapper>
             <WriteInput>
-                <input className='title' type='text' placeholder='제목을 입력하세요' />
-                <textarea placeholder="내용을 작성하세요..."  />
+                <input 
+                    className='title'
+                    placeholder='제목을 입력하세요'
+                    type='text'
+                    onChange={onChange}
+                    name='title'
+                    value={value}
+                />
+                <textarea
+                    placeholder="내용을 작성하세요..."  
+                    onChange={onChange}
+                    name='content'
+                    value={value}
+                />
             </WriteInput>
 
-            <TagInput>
-                <p>태그</p>
-                <div className="input_wrap">
-                    <input placeholder="태그를 입력하세요" />
-                    <TagBtn>추가</TagBtn>
-                </div>
-            </TagInput>
-            <TagCont>
-                <ul>
-                    <li>태그1</li>
-                    <li>Test 태그2</li>
-                </ul>
-            </TagCont>
+            <TagBoxContainer />
 
             <PostBtn>
                 <WriteBtn>포스트 등록</WriteBtn>

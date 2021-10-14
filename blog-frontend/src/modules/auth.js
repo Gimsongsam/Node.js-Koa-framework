@@ -3,7 +3,6 @@ import * as api from '../lib/api';
 import {takeLatest} from 'redux-saga/effects'
 import produce from 'immer';
 import requestSaga from '../lib/requestSaga';
-// import {checklogin, checkregister} from './user';
 
 //액션 타입 설정하기
 const LOGIN = 'auth/LOGIN';
@@ -18,8 +17,6 @@ const CHANGE_FIELD = 'auth/CHANGE_FIELD';
 const INITIALIZE = 'auth/INITIALIZE';
 
 const CHECK_USER = 'auth/CHECK_USER';
-
-// const GOTO_HOME = 'auth/GOTO_HOME';
 
 // 액션 생성자 함수
 export const changeField = createAction(
