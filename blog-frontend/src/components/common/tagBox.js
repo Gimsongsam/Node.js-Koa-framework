@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import styled from 'styled-components';
 import Button from './button';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -61,29 +61,40 @@ const TagBtn = styled(Button)`
 `;
 
 const TagBox = ({tags, onInsertTag}) => {
-    const [tagInput, setTagInput] = useState('');
+    const [value, setvalue] = useState('');
     const [tagCont, setContTag] = useState(tags);
 
-    const onChange = (e) => {
-        // console.log(e.target.value)
-        setTagInput(e.target.value)
-    }
+    const onChange = useCallback(
+        (e) => {
+            // console.log(e.target.value)
+            setvalue(e.target.value)
+            // console.log(value);
+        },[]);
 
-    const onInsert = () => {
-        const tag = [tagInput];
-        setContTag(tagCont.concat(tag));
-        console.log(tagCont);
-        setTagInput('');
-        onInsertTag(tagCont);
-    }
+    const onInsert = useCallback(
+        (e) => {
+            
+            const tag = [value];
+            setContTag(tagCont.concat(tag));
+            console.log('tagCont',tagCont);
+            console.log('tag', tag);
+            // onInsertTag(tagCont);
+            setvalue('');
+            
+            e.preventDefault();
+        },[value, setContTag, tagCont]);
 
     const onDelete = (key) => {
         setContTag(tagCont.filter((tag, index) => index !== key));
-        console.log(key);
-        onInsertTag(tagCont);
+        // console.log(key);
+        // onInsertTag(tagCont);
     }
 
-    
+    useEffect(() => {
+        onInsertTag(tagCont);
+    },[tagCont, onInsert])
+
+    // console.log(tagCont)
 
     return(
         <>
@@ -94,7 +105,7 @@ const TagBox = ({tags, onInsertTag}) => {
                         placeholder="태그를 입력하세요" 
                         onChange={onChange}
                         name='tag'
-                        // value={value}
+                        value={value}
                     />
                     <TagBtn onClick={onInsert}>추가</TagBtn>
                 </div>

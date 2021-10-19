@@ -1,19 +1,17 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import TagBox from '../components/common/tagBox';
-import { createInsert } from '../modules/post';
+import { createInsert} from '../modules/post';
 
 const TagBoxContainer = () => {
     const dispatch = useDispatch();
     const {tags} = useSelector(({post}) => ({
-        tags: post.tags
-    }))
+        tags: post.tags,
+    }));
 
-const onInsert = (tag) => {
-    dispatch(createInsert(tag))
-}
-
-    
+    const onInsert = (tag) => {
+        dispatch(createInsert(tag))
+    };
 
     return(
         <TagBox 

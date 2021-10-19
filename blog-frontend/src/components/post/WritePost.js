@@ -57,33 +57,35 @@ const CancelBtn = styled(Button)`
     }
 `;
 
-const WritePost = ({onChange, value}) => {
+const WritePost = ({onChange, value, onSubmit}) => {
 
     return (
         <Wrapper>
-            <WriteInput>
-                <input 
-                    className='title'
-                    placeholder='제목을 입력하세요'
-                    type='text'
-                    onChange={onChange}
-                    name='title'
-                    value={value}
-                />
-                <textarea
-                    placeholder="내용을 작성하세요..."  
-                    onChange={onChange}
-                    name='content'
-                    value={value}
-                />
-            </WriteInput>
+            <form onSubmit={onSubmit}>
+                <WriteInput>
+                    <input 
+                        className='title'
+                        placeholder='제목을 입력하세요'
+                        type='text'
+                        onChange={onChange}
+                        name='title'
+                        value={value}
+                    />
+                    <textarea
+                        placeholder="내용을 작성하세요..."  
+                        onChange={onChange}
+                        name='body'
+                        value={value}
+                    />
+                </WriteInput>
 
-            <TagBoxContainer />
+                <TagBoxContainer />
 
-            <PostBtn>
-                <WriteBtn>포스트 등록</WriteBtn>
-                <CancelBtn to='/'>취소</CancelBtn>
-            </PostBtn>
+                <PostBtn>
+                    <WriteBtn type='submit'>포스트 등록</WriteBtn>
+                    <CancelBtn to='/'>취소</CancelBtn>
+                </PostBtn>
+            </form>
         </Wrapper>
     )
 }

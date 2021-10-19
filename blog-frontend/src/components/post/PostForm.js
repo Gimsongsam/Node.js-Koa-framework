@@ -44,14 +44,20 @@ const Pagination = styled(Button)`
 
 
 
-const PostForm = () => {
+const PostForm = ({userId}) => {
     const type = 'PostForm';
 
     return(
         <Wrapper>
-            <div className="button_spacing">
-                <NewPostButton to="/write">새 글 작성하기</NewPostButton>
-            </div>
+            
+                {userId === '' ? (
+                    <div className="button_spacing"></div>
+                ):(
+                    <div className="button_spacing">
+                        <NewPostButton to="/write">새 글 작성하기</NewPostButton>
+                    </div>
+                )}
+                
             <PostList type={type} />
             <PostList type={type} />
             <PostList type={type} />
