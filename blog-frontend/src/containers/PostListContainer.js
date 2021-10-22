@@ -6,9 +6,10 @@ import {createPostListSaga} from '../modules/post';
 
 const PostListContainer = () => {
     const dispatch = useDispatch();
-    const {userId, tags} = useSelector(({user, post}) => ({
+    const {userId, tags, postList} = useSelector(({user, post}) => ({
         userId: user.userId,
-        tags: post.tags
+        tags: post.tags,
+        postList: post.postList
     }))
 
     useEffect(() => {
@@ -19,7 +20,10 @@ const PostListContainer = () => {
     }, [dispatch, userId, tags]);
 
     return(
-        <PostForm userId={userId} />
+        <PostForm
+            userId={userId} 
+            postList={postList}
+        />
     )
 }
 

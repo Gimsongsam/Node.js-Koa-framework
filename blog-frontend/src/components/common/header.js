@@ -55,9 +55,6 @@ const UserButton = styled(Button)`
 
 const Header = ({userId, onLogout}) => {
 
-    // const parseUserId = userId.replace('/@:', '');
-    // const dispatch = useDispatch();
-
     return (
         <>
             <HeaderBlock>

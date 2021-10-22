@@ -13,7 +13,7 @@ const App = () => {
       <Route component={LoginPage} path='/login' />
       <Route component={RegisterPage} path='/register' />
       <Route component={PostWritePage} path='/write' />
-      <Route component={PostView} path='/@:test1/:test1234'/> {/* /@:username/:postId */}
+      <Route component={PostView} path='/@:username/:postId'/>
     </div>
   )
 }

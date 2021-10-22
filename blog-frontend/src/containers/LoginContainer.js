@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import { changeField, initialize, createlogin,} from '../modules/auth';
+import { changeField, initialize, createlogin, checkuser,} from '../modules/auth';
 import {check} from '../modules/user';
 import AuthForm from '../components/auth/AuthForm';
 import { withRouter } from 'react-router-dom';
@@ -52,6 +52,7 @@ const LoginContainer = () => {
             return
         }
         // console.log('test');
+        dispatch(checkuser(true));
     }
 
     useEffect(() => {

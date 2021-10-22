@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Responsive from '../common/responsive';
-import PostList from './PostContent';
+import PostContent from './PostContent';
 import Button from '../common/button';
 
 
@@ -11,6 +11,7 @@ const Wrapper = styled(Responsive)`
     .button_spacing{
         width: 100%;
         text-align: right;
+        padding-bottom: 1.5rem;
     }
 
     .pagination{
@@ -44,8 +45,9 @@ const Pagination = styled(Button)`
 
 
 
-const PostForm = ({userId}) => {
+const PostForm = ({userId, postList}) => {
     const type = 'PostForm';
+    console.log(postList);
 
     return(
         <Wrapper>
@@ -57,10 +59,21 @@ const PostForm = ({userId}) => {
                         <NewPostButton to="/write">새 글 작성하기</NewPostButton>
                     </div>
                 )}
-                
+                {postList.map((list, index) => (
+                    <PostContent 
+                        key={index}
+                        type={type} 
+                        content={list}
+                        // username={list.user.username}
+                        // id={list._id}
+                        // body={list.body}
+                        // tags={list.tags}
+                        // title={list.title}
+                    />
+                ))}
+            {/* <PostList type={type} />
             <PostList type={type} />
-            <PostList type={type} />
-            <PostList type={type} />
+            <PostList type={type} /> */}
             <ul className="pagination">
                 <li>
                     <Pagination>이전</Pagination>

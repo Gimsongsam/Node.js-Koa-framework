@@ -1,5 +1,4 @@
 import axios from 'axios';
-// 구조가 이상해
 export const requestLogin = (payload) => 
     // console.log('payload: ', payload)
     axios.post('http://localhost:4000/api/auth/login',
@@ -28,5 +27,14 @@ export const requestPost = (payload) =>
 
 export const getPost = (payload) => {
     const {username} = payload;
-    console.log(username)
-    axios.get(`http://localhost:4000/api/posts?username=${username}&tag=&page=`)}
+    // console.log(`http://localhost:4000/api/posts?username=${username}&tag=&page=`);
+    return axios.get(`http://localhost:4000/api/posts?username=${username}&tag=&page=`,
+        {
+            username: username,
+        }    
+    )}
+
+export const getPostRead = (payload) => {
+    console.log(payload);
+    return axios.get(`http://localhost:4000/api/posts/${payload}`)
+}

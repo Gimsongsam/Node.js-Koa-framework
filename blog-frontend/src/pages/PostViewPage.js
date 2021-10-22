@@ -1,9 +1,9 @@
 import React from 'react';
-import PostView from '../components/post/PostView'
-
+import PostViewContainer from '../containers/PostViewContainer';
 
 const PostViewPage = () => {
-    return <PostView />
+
+    return <PostViewContainer />
 }
 
 export default PostViewPage;

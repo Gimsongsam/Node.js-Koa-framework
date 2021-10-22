@@ -40,10 +40,6 @@ const Content = styled.div`
             font-weight: 600;
         }
     }
-
-    p{
-        
-    }
 `;
 
 const PostListText = styled.p`
@@ -57,38 +53,43 @@ const PostListText = styled.p`
     height: 3.6em; */
 `;
 
-// const PostViewText = styled.p`
+// const testCont = {
+//     title: '테스트 포스트',
+//     userid: 'TestId',
+//     date: '2019.5.5',
+//     tag: ['테스트', '테스트2'],
+//     text: '내용입니다. 테스트 내용입니다. 내용입니다. 테스트 내용입니다.내용입니다. 테스트 내용입니다.내용입니다. 테스트 내용입니다.내용입니다. 테스트 내용입니다.내용입니다. 테스트 내용입니다.내용입니다. 테스트 내용입니다.내용입니다. 테스트 내용입니다. 테스트 내용입니다.내용입니다. 테스트 내용입니다.내용입니다. 테스트 내용입니다.테스트 내용입니다.내용입니다. 테스트 내용입니다.내용입니다. 테스트 내용입니다.테스트 내용입니다.내용입니다. 테스트 내용입니다.내용입니다. 테스트 내용입니다.테스트 내용입니다.내용입니다. 테스트 내용입니다.내용입니다. 테스트 내용입니다.테스트 내용입니다.내용입니다. 테스트 내용입니다.내용입니다. 테스트 내용입니다.'
+// }
 
-// `;
+const PostContent = ({content}) => {
+    const {body, user, tags, title, publishedDate, _id} = content
+    console.log(content);
+    // console.log(user);
 
-const testCont = {
-    title: '테스트 포스트',
-    userid: 'TestId',
-    date: '2019.5.5',
-    tag: ['테스트', '테스트2'],
-    text: '내용입니다. 테스트 내용입니다. 내용입니다. 테스트 내용입니다.내용입니다. 테스트 내용입니다.내용입니다. 테스트 내용입니다.내용입니다. 테스트 내용입니다.내용입니다. 테스트 내용입니다.내용입니다. 테스트 내용입니다.내용입니다. 테스트 내용입니다. 테스트 내용입니다.내용입니다. 테스트 내용입니다.내용입니다. 테스트 내용입니다.테스트 내용입니다.내용입니다. 테스트 내용입니다.내용입니다. 테스트 내용입니다.테스트 내용입니다.내용입니다. 테스트 내용입니다.내용입니다. 테스트 내용입니다.테스트 내용입니다.내용입니다. 테스트 내용입니다.내용입니다. 테스트 내용입니다.테스트 내용입니다.내용입니다. 테스트 내용입니다.내용입니다. 테스트 내용입니다.'
-}
+    // console.log(id);
+    // console.log(userId)
+    // console.log(type)
 
-const PostContent = ({type}) => {
-    const {title, userid, date, tag, text} = testCont;
+    const url = `/@:${user.username}/:${_id}`
+    
     return(
         <Content>
-            <Link to="/@:test1/:test1234">{title}</Link>
+            <Link to={url}>{title}</Link>
             <div className="info_wrap">
                 <ul className="info">
-                    <li>{userid}</li>
-                    <li>{date}</li>
+                    <li>{user.username}</li>
+                    <li>{publishedDate}</li>
                 </ul>
                 <ul className="tag">
-                    <li>{tag[0]}</li>
-                    <li>{tag[1]}</li>
+                    {
+                        tags.map((tag) => (
+                            <li>{tag}</li>
+                        ))
+                    }
+                    
                 </ul>
             </div>
-            {type === 'PostForm' ? (
-                <PostListText>{text}</PostListText>
-            ) : (
-                <p>{text}</p>
-            )}
+            <PostListText>{body}</PostListText>
             
         </Content>
     )

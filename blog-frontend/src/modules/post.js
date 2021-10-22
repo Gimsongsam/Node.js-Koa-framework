@@ -8,8 +8,11 @@ const CHANGE_FIELD = 'post/CHANGE_FIELD';
 const ONINSERT = 'post/ONINSERT';
 
 const POSTLIST = 'post/POSTLIST';
-const POSTLIST_SUCEESS = 'post/POSTLIST_SUCEESS';
-const POSTLIST_FAILURE = 'post/POSTLIST_FAILURE';
+const POSTLIST_SUCCESS = 'post/POSTLIST_SUCCESS';
+// const POSTLIST_FAILURE = 'post/POSTLIST_FAILURE';
+
+const POSTREAD = 'post/POSTREAD';
+const POSTREAD_SUCCESS = 'post/POSTREAD_SUCCESS';
 
 const POST = 'post/POST';
 
@@ -21,19 +24,22 @@ export const changeField = createAction(CHANGE_FIELD, ({name, value}) => ({
 
 export const createInsert = createAction(ONINSERT, tag => tag);
 
-// export const createpostsaga = createAction(POST_SUCCESS, form => form);
-export const createPostSaga = createAction(POST, post => post);
 export const createPostListSaga = createAction(POSTLIST, (username, tag) => ({
     username,
     tag
 }));
-
-const requestPostSaga = requestSaga(POST, api.requestPost);
 const requestPostListSaga = requestSaga(POSTLIST, api.getPost);
+
+export const createPostSaga = createAction(POST, post => post);
+const requestPostSaga = requestSaga(POST, api.requestPost);
+
+export const createPostRead = createAction(POSTREAD, id => id);
+const postReadSaga = requestSaga(POSTREAD, api.getPostRead);
 
 export function* postSaga(){
     console.log('postSaga 실행');
-    yield takeEvery(POSTLIST, requestPostListSaga);
+    yield takeLatest(POSTLIST, requestPostListSaga);
+    yield takeLatest(POSTREAD, postReadSaga);
     // yield takeEvery(POST, requestPostSaga);
 }
 
@@ -43,8 +49,14 @@ const initialState = {
     title: '',
     body: '',
     tags: [],
-    postlist: '',
-    test: null,
+    postList: [],
+    postContent: {
+            title: '',
+            user: {username:''},
+            publishedDate: '',
+            tags: [],
+            body: ''
+        }
 }
 
 // 리듀서
@@ -57,13 +69,17 @@ const post = handleActions({
         ...state,
         tags: action.payload
     }),
-    [POSTLIST_SUCEESS]: (state, action) => ({
+    [POSTLIST_SUCCESS]: (state, action) => ({
         ...state,
-        postlist: action.payload
+        postList: action.payload
     }),
-    [POSTLIST_FAILURE]: (state, action) => ({
+    // [POSTLIST_FAILURE]: (state, action) => ({
+    //     ...state,
+    //     test: action.payload
+    // })
+    [POSTREAD_SUCCESS]: (state, action) => ({
         ...state,
-        test: action.payload
+        postContent: action.payload
     })
 },
     initialState
