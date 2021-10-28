@@ -59,6 +59,12 @@ const AuthButton = styled(Button)`
 
 const AuthForm = ({type, text, form, onChange, onSubmit, errorMessage}) => {
     
+    // useEffect(() => {
+    //     if(user){
+            
+    //     }
+    // })
+
     return(
         <AuthInput>
             {/* {console.log(form.username)} */}

@@ -6,7 +6,7 @@ import { createInsert} from '../modules/post';
 const TagBoxContainer = () => {
     const dispatch = useDispatch();
     const {tags} = useSelector(({post}) => ({
-        tags: post.tags,
+        tags: post.form.tags,
     }));
 
     const onInsert = (tag) => {

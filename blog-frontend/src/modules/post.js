@@ -2,6 +2,7 @@ import { createAction, handleActions } from "redux-actions";
 import { takeEvery, takeLatest } from "@redux-saga/core/effects";
 import requestSaga from "../lib/requestSaga";
 import * as api from '../lib/api';
+import produce from "immer";
 
 // 액션 타입 설정하기
 const CHANGE_FIELD = 'post/CHANGE_FIELD';
@@ -30,7 +31,7 @@ export const createPostListSaga = createAction(POSTLIST, (username, tag) => ({
 }));
 const requestPostListSaga = requestSaga(POSTLIST, api.getPost);
 
-export const createPostSaga = createAction(POST, post => post);
+export const createPostSaga = createAction(POST, form => form);
 const requestPostSaga = requestSaga(POST, api.requestPost);
 
 export const createPostRead = createAction(POSTREAD, id => id);
@@ -40,15 +41,17 @@ export function* postSaga(){
     console.log('postSaga 실행');
     yield takeLatest(POSTLIST, requestPostListSaga);
     yield takeLatest(POSTREAD, postReadSaga);
-    // yield takeEvery(POST, requestPostSaga);
+    yield takeEvery(POST, requestPostSaga);
 }
 
 
 // state 설정하기
 const initialState = {
-    title: '',
-    body: '',
-    tags: [],
+    form: {
+        title: '',
+        body: '',
+        tags: [],
+    },
     postList: [],
     postContent: {
             title: '',
@@ -61,26 +64,22 @@ const initialState = {
 
 // 리듀서
 const post = handleActions({
-    [CHANGE_FIELD]: (state, {payload: {name, value}}) => ({
-        ...state,
-        [name]: value
+    [CHANGE_FIELD]: (state, {payload: {name, value}}) => 
+        produce(state, draft => {
+            draft.form[name] = value
     }),
-    [ONINSERT]: (state, action) => ({
-        ...state,
-        tags: action.payload
-    }),
-    [POSTLIST_SUCCESS]: (state, action) => ({
-        ...state,
-        postList: action.payload
-    }),
-    // [POSTLIST_FAILURE]: (state, action) => ({
-    //     ...state,
-    //     test: action.payload
-    // })
-    [POSTREAD_SUCCESS]: (state, action) => ({
-        ...state,
-        postContent: action.payload
-    })
+    [ONINSERT]: (state, action) => 
+        produce(state, draft => {
+            draft.form.tags = action.payload
+        }),
+    [POSTLIST_SUCCESS]: (state, action) => 
+        produce(state, draft => {
+            draft.postList = action.payload
+        }),
+    [POSTREAD_SUCCESS]: (state, action) => 
+        produce(state, draft => {
+            draft.postContent = action.payload
+        })
 },
     initialState
 )

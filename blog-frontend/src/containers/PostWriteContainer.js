@@ -6,8 +6,9 @@ import { changeField, createPostSaga } from '../modules/post'
 const PostWriteContainer = () => {
 
     const dispatch = useDispatch();
-    const {form} = useSelector(({post}) => ({
-        form: post
+    const {form, user} = useSelector(({post, user}) => ({
+        form: post.form,
+        // user: user.userId
     })) 
 
     const onChange = (e) => {

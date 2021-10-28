@@ -5,8 +5,15 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage'
 import PostWritePage from './pages/PostWritePage'
 import PostView from './pages/PostViewPage';
+// import {useCookies} from 'react-cookie';
 
 const App = () => {
+  // const [cookies, setCookie] = useCookies(['name']);
+
+  // function onChange(newName){
+  //   setCookie('name', newName, {path: '/'});
+  // }
+
   return (
     <div>
       <Route component={PostList} path={['/@:username', '/']} exact={true}/>

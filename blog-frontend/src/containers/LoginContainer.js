@@ -51,7 +51,7 @@ const LoginContainer = () => {
             setErrorMessage('아이디 혹은 비밀번호가 일치하지 않습니다.');
             return
         }
-        // console.log('test');
+        console.log('test');
         dispatch(checkuser(true));
     }
 
@@ -66,6 +66,11 @@ const LoginContainer = () => {
         if(userState){
             console.log(userState);
             history.push(`/@:${userId}`);
+            try{
+                localStorage.setItem('user', JSON.stringify(userId));
+            }catch(e){
+                console.log('localStorage is no working');
+            }
         }
     },[userId, dispatch, userState, history])
 
