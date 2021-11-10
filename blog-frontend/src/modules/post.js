@@ -1,7 +1,7 @@
 import { createAction, handleActions } from "redux-actions";
 import { takeEvery, takeLatest } from "@redux-saga/core/effects";
 import requestSaga from "../lib/requestSaga";
-import * as api from '../lib/api';
+import * as api from '../lib/api/postApi';
 import produce from "immer";
 
 // 액션 타입 설정하기

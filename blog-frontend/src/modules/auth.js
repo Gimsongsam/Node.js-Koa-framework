@@ -1,5 +1,5 @@
 import {createAction, handleActions} from 'redux-actions';
-import * as api from '../lib/api';
+import * as api from '../lib/api/authApi';
 import {takeLatest} from 'redux-saga/effects'
 import produce from 'immer';
 import requestSaga from '../lib/requestSaga';
@@ -16,7 +16,7 @@ const REGISTER_FAILURE = 'auth/REGISTER_FAILURE';
 const CHANGE_FIELD = 'auth/CHANGE_FIELD';
 const INITIALIZE = 'auth/INITIALIZE';
 
-const CHECK_USER = 'auth/CHECK_USER';
+// const CHECK_USER = 'auth/CHECK_USER';
 
 // 액션 생성자 함수
 export const changeField = createAction(
@@ -32,7 +32,7 @@ export const initialize = createAction(INITIALIZE);
 export const createlogin = createAction(LOGIN, form => form);
 export const createregister = createAction(REGISTER, form => form);
 
-export const checkuser = createAction(CHECK_USER, state => state);
+// export const checkuser = createAction(CHECK_USER, state => state);
 
 
 // 사가 함수
@@ -57,8 +57,8 @@ const initialState = {
         username: '',
         password: '',
     },
-    auth: false,
-    authError: null
+    // auth: false,
+    // authError: null
 }
 
 
@@ -89,10 +89,10 @@ const auth = handleActions(
             ...state,
             authError: action.payload,
         }),
-        [CHECK_USER] : (state, action) => ({
-            ...state,
-            auth: true,
-        })
+        // [CHECK_USER] : (state, action) => ({
+        //     ...state,
+        //     auth: true,
+        // })
     },
     initialState
 );

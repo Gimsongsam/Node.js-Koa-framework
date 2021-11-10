@@ -68,15 +68,12 @@ const LoginContainer = () => {
             history.push(`/@:${userId}`);
             try{
                 localStorage.setItem('user', JSON.stringify(userId));
+                console.log(JSON.stringify(userId));
             }catch(e){
                 console.log('localStorage is no working');
             }
         }
     },[userId, dispatch, userState, history])
-
-    
-    
-    
 
     return (
         <AuthForm
