@@ -1,32 +1,36 @@
 import {createAction, handleActions} from 'redux-actions';
+// import createReuestSaga, 
 
-const CHECK = 'user/CHECK';
-const LOGOUT = 'user/LOGOUT'
+const TEMP_SET_USER = 'user/TEMSET_USER';
+// const [CHECK, CHECK_SUCEESS, CHECK_FAILURE] = 
 
-export const check = createAction(CHECK, (userId, userState) => ({
-    userId,
-    userState
-}));
+export const check = createAction(CHECK);
+export const tempSetUser = createAction(TEMP_SET_USER, user => user);
 
-export const createlogout = createAction(LOGOUT)
 
 const initialState = {
-    userId: '',
-    userState: false
+    user: null,
+    checkError: null,
 }
 
 const user = handleActions(
     {
-        [CHECK] : (state, action) => ({
+        [TEMP_SET_USER] : (state, action) => ({
             ...state,
-            userId: action.payload.userId,
-            userState: action.payload.userState
+            user,
         }),
-        [LOGOUT]: (state) => initialState
-    
+        [CHECK_SUCEESS] : (state, action) => ({
+            ...state,
+            user,
+            checkError: null,
+        }),
+        [CHECK_FAILURE] : (state, {payload: error}) => ({
+            ...state,
+            user: null,
+            checkError: error,
+        })
     },
     initialState
 );
-    
 
 export default user;

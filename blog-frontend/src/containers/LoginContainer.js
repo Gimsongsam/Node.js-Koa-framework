@@ -52,15 +52,17 @@ const LoginContainer = () => {
             return
         }
         console.log('test');
-        dispatch(checkuser(true));
+        // dispatch(checkuser(true));
+        dispatch(check(username, true));
+        console.log('로그인');
     }
 
-    useEffect(() => {
-        if(auth){
-            console.log('로그인 성공: ', auth);
-            dispatch(check(username, true))
-        }
-    },[auth, history, dispatch, username])
+    // useEffect(() => {
+    //     if(auth){
+    //         console.log('로그인 성공: ', auth);
+    //         dispatch(check(username, true))
+    //     }
+    // },[auth, history, dispatch, username])
 
     useEffect(() => {
         if(userState){
@@ -68,7 +70,7 @@ const LoginContainer = () => {
             history.push(`/@:${userId}`);
             try{
                 localStorage.setItem('user', JSON.stringify(userId));
-                console.log(JSON.stringify(userId));
+                // console.log(JSON.stringify(userId));
             }catch(e){
                 console.log('localStorage is no working');
             }
