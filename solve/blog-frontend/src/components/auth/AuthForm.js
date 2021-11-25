@@ -51,10 +51,22 @@ const Footer = styled.div`
     }
 `;
 
-const AuthForm = () => {
+const ButtonWithMarginTop = styled(Button)`
+    margin-top: 1rem;
+`;
+
+const textMap = {
+    login: '로그인',
+    register: '회원가입',
+};
+
+const AuthForm = ({type}) => {
+    const text = textMap[type];
+    // 받아온 파라미터로 객체에 접근하기 위해서는 대괄호 참조 방식을 사용해야한다.
+
     return (
         <AuthFormBlock>
-            <h3>로그인</h3>
+            <h3>{text}</h3>
             <form>
                 <StyledInput autoComplete="username" name="username" placeholder="아이디" />
                 <StyledInput 
@@ -63,10 +75,24 @@ const AuthForm = () => {
                     placeholder="비밀번호"
                     type="password"
                 />
-                <Button>로그인</Button>
+                {type === 'register' && (
+                    <StyledInput 
+                        authComplete = "new-password"
+                        name="passwordConfirm"
+                        placeholder="비밀번호 확인"
+                        type="password"
+                    />
+                )}
+                <ButtonWithMarginTop cyan fullWidth>
+                    {text}
+                </ButtonWithMarginTop>
             </form>
             <Footer>
-                <Link to="/register">회원가입</Link>
+                {type === 'login' ? (
+                    <Link to="/register">회원가입</Link>
+                ):(
+                    <Link to="/login">로그인</Link>
+                )}
             </Footer>
         </AuthFormBlock>
     );
