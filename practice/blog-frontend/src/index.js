@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import {createStore, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
-import { persistStore } from 'redux-persist';
-import {PersistGate} from 'redux-persist/integration/react';
+// import { persistStore } from 'redux-persist';
+// import {PersistGate} from 'redux-persist/integration/react';
 import {CookiesProvider} from 'react-cookie';
 import './index.css';
 import App from './App';
@@ -13,24 +13,25 @@ import { BrowserRouter, Router } from 'react-router-dom';
 import rootReducer, {rootSaga} from './modules';
 import createSagaMiddleware from 'redux-saga';
 import ReduxThunk from 'redux-thunk';
-import { createBrowserHistory } from 'history';
+// import { createBrowserHistory } from 'history';
 import { checkuser } from './modules/auth';
+import { tempSetUser } from './modules/user';
 
-const customHistory = createBrowserHistory({forceRefresh: true});
+// const customHistory = createBrowserHistory({forceRefresh: true});
 const sagaMiddleware = createSagaMiddleware({
-  context: {
-    history: customHistory
-  }
+  // context: {
+  //   history: customHistory
+  // }
 });
 
 const store = createStore(
   rootReducer,
   composeWithDevTools(
     applyMiddleware(
-      ReduxThunk.withExtraArgument({history: customHistory}),
+      // ReduxThunk.withExtraArgument({history: customHistory}),
       sagaMiddleware)),
 );
-const persistor = persistStore(store);
+// const persistor = persistStore(store);
 
 function loadUser(){
   try {
@@ -48,17 +49,17 @@ loadUser();
 
 
 ReactDOM.render(
-  <Router history={customHistory}>
+  // <Router history={customHistory}>
     <CookiesProvider>
       <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
+        {/* <PersistGate loading={null} persistor={persistor}> */}
           <BrowserRouter>
             <App />
           </BrowserRouter>
-        </PersistGate>
+        {/* </PersistGate> */}
       </Provider>
     </CookiesProvider>,
-   </Router>,
+  //  </Router>,
   
   document.getElementById('root')
 );

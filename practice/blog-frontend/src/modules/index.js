@@ -4,17 +4,17 @@ import auth, {createSaga} from './auth';
 import post, { postSaga } from './post';
 import user from './user';
 import loading from './loading';
-import {persistReducer} from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
+// import {persistReducer} from 'redux-persist';
+// import storage from 'redux-persist/lib/storage';
 
-const persistConfig = {
-    key: 'root',
-    // localStorage에 저장합니다.
-    storage,
-    // user reducer만 localstorage에 저장합니다.
-    whitelist: ["user"]
-    // blacklist -> 그것만 제외합니다.
-}
+// const persistConfig = {
+//     key: 'root',
+//     // localStorage에 저장합니다.
+//     storage,
+//     // user reducer만 localstorage에 저장합니다.
+//     whitelist: ["user"]
+//     // blacklist -> 그것만 제외합니다.
+// }
 
 
 const rootReducer = combineReducers({
@@ -30,4 +30,5 @@ export function* rootSaga(){
     yield all([createSaga(), postSaga()]);
 }
 
-export default persistReducer(persistConfig, rootReducer);
+export default rootReducer;
+// export default persistReducer(persistConfig, rootReducer);

@@ -1,12 +1,12 @@
 import React from 'react';
 import Header from '../components/common/header';
 import { useSelector, useDispatch } from 'react-redux';
-import { createlogout } from '../modules/user';
+import { createlogout } from '../modules/auth';
 
 const HeaderContainer = () => {
     const dispatch = useDispatch();
     const {userId} = useSelector(({user}) => ({
-        userId: user.userId
+        userId: user.user
     }))
 
     const logout = () => {
@@ -15,10 +15,13 @@ const HeaderContainer = () => {
     }
 
     return (
-        <Header
-            userId={userId} 
-            onLogout={logout}
-        />
+        <>
+            {console.log(userId)}
+            <Header
+                userId={userId} 
+                onLogout={logout}
+            />
+        </>
     )
 }
 

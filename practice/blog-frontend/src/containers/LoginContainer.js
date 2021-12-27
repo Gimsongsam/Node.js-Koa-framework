@@ -14,7 +14,7 @@ const LoginContainer = () => {
         error: auth.authError,
         auth: auth.auth,
         userState: user.userState,
-        userId: user.userId
+        userId: user.user
     }));
 
     useEffect(() => {
@@ -65,6 +65,7 @@ const LoginContainer = () => {
     // },[auth, history, dispatch, username])
 
     useEffect(() => {
+
         if(userState){
             console.log(userState);
             history.push(`/@:${userId}`);

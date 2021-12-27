@@ -21,3 +21,6 @@ export const checkuser = (payload) =>
 axios.get(`http://localhost:4000/api/auth/check`,{
     user: payload.username 
 });
+
+export const requestLogout = () =>
+axios.post(`http://localhost:4000/api/auth`)

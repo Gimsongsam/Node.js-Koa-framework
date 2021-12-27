@@ -16,7 +16,8 @@ const REGISTER_FAILURE = 'auth/REGISTER_FAILURE';
 const CHANGE_FIELD = 'auth/CHANGE_FIELD';
 const INITIALIZE = 'auth/INITIALIZE';
 
-// const CHECK_USER = 'auth/CHECK_USER';
+const LOGOUT = 'auth/LOGOUT';
+const CHECK_USER = 'auth/CHECK_USER';
 
 // 액션 생성자 함수
 export const changeField = createAction(
@@ -31,18 +32,21 @@ export const changeField = createAction(
 export const initialize = createAction(INITIALIZE);
 export const createlogin = createAction(LOGIN, form => form);
 export const createregister = createAction(REGISTER, form => form);
+export const createlogout = createAction(LOGOUT);
 
-// export const checkuser = createAction(CHECK_USER, state => state);
+export const checkuser = createAction(CHECK_USER, state => state);
 
 
 // 사가 함수
 const loginSaga = requestSaga(LOGIN, api.requestLogin);
 const registerSaga = requestSaga(REGISTER, api.requestRegister);
+const logoutSaga = requestSaga(LOGOUT, api.requestLogout)
 
 export function* createSaga(){
     console.log('createSaga 실행'); 
     yield takeLatest(LOGIN, loginSaga);
     yield takeLatest(REGISTER, registerSaga);
+    yield takeLatest(LOGOUT, logoutSaga);
 }
 
 
@@ -57,8 +61,8 @@ const initialState = {
         username: '',
         password: '',
     },
-    // auth: false,
-    // authError: null
+    auth: false,
+    authError: null
 }
 
 
@@ -73,9 +77,8 @@ const auth = handleActions(
             )
         },
         [INITIALIZE]: (state) => initialState,
-        [LOGIN_SUCCESS]: (state, action) => ({
-            ...state,
-            login: action.payload
+        [LOGIN_SUCCESS]: (state, action) => produce(state, draft => {
+            // draft. = 
         }),
         [REGISTER_SUCCESS]: (state, action) => ({
             ...state,
@@ -89,10 +92,10 @@ const auth = handleActions(
             ...state,
             authError: action.payload,
         }),
-        // [CHECK_USER] : (state, action) => ({
-        //     ...state,
-        //     auth: true,
-        // })
+        [CHECK_USER] : (state, action) => ({
+            ...state,
+            auth: true,
+        })
     },
     initialState
 );
