@@ -18,7 +18,7 @@ const { PORT, MONGO_URI } = process.env;
 
 // mongoose를 이용하여 서버와 데이터베이스 연결하기
 mongoose
-.connect(MONGO_URI, {useNewUrlParser: true})
+    .connect(MONGO_URI, {useNewUrlParser: true})
     .then(() => {
         console.log('Connected to MongoDB');
         // createFakeData();

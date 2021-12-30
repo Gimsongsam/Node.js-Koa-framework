@@ -8,30 +8,34 @@ const CHECK = 'user/CHECK';
 const CHECK_SUCEESS = 'user/CHECK_SUCEESS';
 const CHECK_FAILURE = 'user/CHECK_FAILURE';
 
-export const check = createAction(CHECK);
+export const checkUser = createAction(CHECK);
 export const tempSetUser = createAction(TEMP_SET_USER, user => user);
 
 
 const initialState = {
-    user: '',
+    user: null,
     checkError: null,
 }
 
-const checkUser = requestSaga(CHECK, authApi.checkuser)
+const check = requestSaga(CHECK, authApi.checkUser);
 
 export function* userSaga(){
-    yield takeLatest(CHECK, checkUser)
+    yield takeLatest(CHECK, check);
 }
 
 const user = handleActions(
     {
-        // [TEMP_SET_USER] : (state, action) => ({
-        //     ...state,
-        //     user,
-        // }),
-        [CHECK_SUCEESS] : (state, action) => ({
+        [TEMP_SET_USER] : (state, action) => ({
             ...state,
             user,
+        }),
+        // [CHECK]: (state, action) => ({
+        //     user: true,
+        //     checkError: null,
+        // }),
+        [CHECK_SUCEESS] : (state, {payload: username}) => ({
+            ...state,
+            user: username,
             checkError: null,
         }),
         [CHECK_FAILURE] : (state, {payload: error}) => ({

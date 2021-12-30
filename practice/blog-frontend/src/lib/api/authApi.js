@@ -17,7 +17,7 @@ export const requestRegister = (payload) =>
                 password: payload.password
             }
         );
-export const checkuser = (payload) => 
+export const checkUser = (payload) => 
 axios.get(`http://localhost:4000/api/auth/check`,{
     user: payload.username 
 });

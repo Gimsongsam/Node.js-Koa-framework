@@ -41,12 +41,14 @@ export const checkuser = createAction(CHECK_USER, state => state);
 const loginSaga = requestSaga(LOGIN, api.requestLogin);
 const registerSaga = requestSaga(REGISTER, api.requestRegister);
 const logoutSaga = requestSaga(LOGOUT, api.requestLogout)
+// const checksaga = requestSaga(CHECK_USER, api.checkuser)
 
 export function* createSaga(){
     console.log('createSaga 실행'); 
     yield takeLatest(LOGIN, loginSaga);
     yield takeLatest(REGISTER, registerSaga);
     yield takeLatest(LOGOUT, logoutSaga);
+    // yield takeLatest(CHECK_USER, checksaga);
 }
 
 
@@ -77,12 +79,13 @@ const auth = handleActions(
             )
         },
         [INITIALIZE]: (state) => initialState,
-        [LOGIN_SUCCESS]: (state, action) => produce(state, draft => {
-            // draft. = 
+        [LOGIN_SUCCESS]: (state, action) => ({
+            ...state,
+            auth: true,
         }),
         [REGISTER_SUCCESS]: (state, action) => ({
             ...state,
-            register: action.payload
+            auth: true,
         }),
         [LOGIN_FAILURE]: (state, action) => ({
             ...state,
@@ -92,10 +95,11 @@ const auth = handleActions(
             ...state,
             authError: action.payload,
         }),
-        [CHECK_USER] : (state, action) => ({
-            ...state,
-            auth: true,
-        })
+        
+        // [CHECK_USER] : (state, action) => ({
+        //     ...state,
+        //     auth: true,
+        // })
     },
     initialState
 );

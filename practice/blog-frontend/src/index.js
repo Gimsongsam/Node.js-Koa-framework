@@ -14,8 +14,7 @@ import rootReducer, {rootSaga} from './modules';
 import createSagaMiddleware from 'redux-saga';
 import ReduxThunk from 'redux-thunk';
 // import { createBrowserHistory } from 'history';
-import { checkuser } from './modules/auth';
-import { tempSetUser } from './modules/user';
+import { checkUser, tempSetUser } from './modules/user';
 
 // const customHistory = createBrowserHistory({forceRefresh: true});
 const sagaMiddleware = createSagaMiddleware({
@@ -35,10 +34,12 @@ const store = createStore(
 
 function loadUser(){
   try {
+    console.log('loadUser 실행');
     const user = localStorage.getItem('user');
+    console.log(user);
     if(!user) return; // 로그인 상태가 아니라면 아무것도 안함
     store.dispatch(tempSetUser(JSON.parse(user)));
-    store.dispatch(checkuser(true));
+    // store.dispatch(checkUser(true));
   } catch(e){
     console.log('localStorage is not working');
   }

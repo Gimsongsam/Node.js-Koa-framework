@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import { changeField, initialize, createlogin, checkuser,} from '../modules/auth';
-import {check} from '../modules/user';
+import { changeField, initialize, createlogin} from '../modules/auth';
+import {checkUser} from '../modules/user';
 import AuthForm from '../components/auth/AuthForm';
 import { withRouter } from 'react-router-dom';
 import { useHistory } from 'react-router';
 
 const LoginContainer = () => {
     const dispatch = useDispatch();
-    const {form, text, error, auth, userState, userId} = useSelector(({auth, user}) => ({
+    const {form, text, error, user, auth} = useSelector(({auth, user}) => ({
         form: auth.login,
         text: '로그인',
         error: auth.authError,
         auth: auth.auth,
-        userState: user.userState,
-        userId: user.user
+        // userState: user.userState,
+        user: user.user
     }));
 
     useEffect(() => {
@@ -51,32 +51,41 @@ const LoginContainer = () => {
             setErrorMessage('아이디 혹은 비밀번호가 일치하지 않습니다.');
             return
         }
-        console.log('test');
+        // console.log('test');
         // dispatch(checkuser(true));
-        dispatch(check(username, true));
-        console.log('로그인');
+        // dispatch(checkUser());
+        // console.log('로그인');
     }
 
-    // useEffect(() => {
-    //     if(auth){
-    //         console.log('로그인 성공: ', auth);
-    //         dispatch(check(username, true))
-    //     }
-    // },[auth, history, dispatch, username])
-
     useEffect(() => {
+        if(auth){
+            console.log('로그인 성공: ', auth);
+            dispatch(checkUser())
 
-        if(userState){
-            console.log(userState);
-            history.push(`/@:${userId}`);
+            history.push(`/@:${user}`);
             try{
-                localStorage.setItem('user', JSON.stringify(userId));
-                // console.log(JSON.stringify(userId));
+                localStorage.setItem('user', JSON.stringify(user));
+                console.log(JSON.stringify(user));
             }catch(e){
                 console.log('localStorage is no working');
             }
+            
         }
-    },[userId, dispatch, userState, history])
+    },[auth, history, dispatch, username, user])
+
+    // useEffect(() => {
+    //     // console.log(user);
+    //     if(user){
+    //         // console.log(user);
+    //         history.push(`/@:${user}`);
+    //         try{
+    //             localStorage.setItem('user', JSON.stringify(user));
+    //             console.log(JSON.stringify(user));
+    //         }catch(e){
+    //             console.log('localStorage is no working');
+    //         }
+    //     }
+    // },[user, dispatch, history])
 
     return (
         <AuthForm

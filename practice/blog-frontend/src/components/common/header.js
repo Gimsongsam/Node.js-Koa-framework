@@ -60,7 +60,7 @@ const Header = ({userId, onLogout}) => {
             <HeaderBlock>
                 <Wrapper>
                     <Link to='/' className="logo">REACTERS</Link>
-                        {userId === '' ? (
+                        {userId === null ? (
                             <div className="right">
                                 <UserButton to="login">로그인</UserButton>
                             </div>
