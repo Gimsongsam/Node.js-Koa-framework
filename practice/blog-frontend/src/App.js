@@ -8,10 +8,10 @@ import PostView from './pages/PostViewPage';
 // import {useCookies} from 'react-cookie';
 
 const App = () => {
-  // const [cookies, setCookie] = useCookies(['name']);
+  // const [cookies, setCookie] = useCookies(['username']);
 
   // function onChange(newName){
-  //   setCookie('name', newName, {path: '/'});
+  //   setCookie('username', newName, {path: '/'});
   // }
 
   return (

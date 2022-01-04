@@ -17,10 +17,8 @@ export const requestRegister = (payload) =>
                 password: payload.password
             }
         );
-export const checkUser = (payload) => 
-axios.get(`http://localhost:4000/api/auth/check`,{
-    user: payload.username 
-});
+export const checkUser = () => 
+    axios.get(`http://localhost:4000/api/auth/check`);
 
 export const requestLogout = () =>
-axios.post(`http://localhost:4000/api/auth`)
+    axios.post(`http://localhost:4000/api/auth/logout`);

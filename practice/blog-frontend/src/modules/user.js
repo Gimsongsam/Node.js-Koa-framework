@@ -5,7 +5,7 @@ import requestSaga from '../lib/requestSaga';
 
 const TEMP_SET_USER = 'user/TEMSET_USER'; // 새로고침 이후 임시 로그인 처리
 const CHECK = 'user/CHECK';
-const CHECK_SUCEESS = 'user/CHECK_SUCEESS';
+const CHECK_SUCCESS = 'user/CHECK_SUCCESS';
 const CHECK_FAILURE = 'user/CHECK_FAILURE';
 
 export const checkUser = createAction(CHECK);
@@ -33,7 +33,7 @@ const user = handleActions(
         //     user: true,
         //     checkError: null,
         // }),
-        [CHECK_SUCEESS] : (state, {payload: username}) => ({
+        [CHECK_SUCCESS] : (state, {payload:username}) => ({
             ...state,
             user: username,
             checkError: null,

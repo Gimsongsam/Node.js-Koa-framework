@@ -17,7 +17,7 @@ const CHANGE_FIELD = 'auth/CHANGE_FIELD';
 const INITIALIZE = 'auth/INITIALIZE';
 
 const LOGOUT = 'auth/LOGOUT';
-const CHECK_USER = 'auth/CHECK_USER';
+// const CHECK_USER = 'auth/CHECK_USER';
 
 // 액션 생성자 함수
 export const changeField = createAction(
@@ -34,7 +34,7 @@ export const createlogin = createAction(LOGIN, form => form);
 export const createregister = createAction(REGISTER, form => form);
 export const createlogout = createAction(LOGOUT);
 
-export const checkuser = createAction(CHECK_USER, state => state);
+// export const checkuser = createAction(CHECK_USER, state => state);
 
 
 // 사가 함수

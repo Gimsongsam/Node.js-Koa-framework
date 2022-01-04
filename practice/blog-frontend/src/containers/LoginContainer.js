@@ -62,7 +62,7 @@ const LoginContainer = () => {
             console.log('로그인 성공: ', auth);
             dispatch(checkUser())
 
-            history.push(`/@:${user}`);
+            // history.push(`/@:${user}`);
             try{
                 localStorage.setItem('user', JSON.stringify(user));
                 console.log(JSON.stringify(user));

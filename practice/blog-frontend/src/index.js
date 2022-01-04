@@ -5,7 +5,7 @@ import {createStore, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
 // import { persistStore } from 'redux-persist';
 // import {PersistGate} from 'redux-persist/integration/react';
-import {CookiesProvider} from 'react-cookie';
+// import {CookiesProvider} from 'react-cookie';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
@@ -51,7 +51,7 @@ loadUser();
 
 ReactDOM.render(
   // <Router history={customHistory}>
-    <CookiesProvider>
+    // <CookiesProvider>
       <Provider store={store}>
         {/* <PersistGate loading={null} persistor={persistor}> */}
           <BrowserRouter>
@@ -59,7 +59,8 @@ ReactDOM.render(
           </BrowserRouter>
         {/* </PersistGate> */}
       </Provider>
-    </CookiesProvider>,
+    // </CookiesProvider>
+    ,
   //  </Router>,
   
   document.getElementById('root')
